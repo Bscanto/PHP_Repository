@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  display: grid;
+  padding: 20px;
+  justify-content: 200px;
+}
+input{
+  padding: 10px;
+  border-radius: 10px;
+  margin: 1px;
+}
+.formulario {
+  display: grid;
+  max-width: 200px;
+  justify-content: 200px;
+  background: rgb(108, 40, 245);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.btn{
+  margin-top: 5px;
+  background: rgb(67, 7, 197);
+  color: #fff;
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+}
