@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pegando dados Formulários</title>
+  <title>Interacão Formulários</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-  <h1> Formulário</h1>
-  <div class="formulario">
-    <form method="GET" action="index.php">
-      <p>Nome</p>
-      <input type="text" name="Nome" value="String" placeholder="Nome" required>
-      <br>
-      <p>SobreNome</p>
-      <input type="text" name="Sobre Nome" value="String" placeholder="SobreNome" required>
-      <br>
-      <button class="btn" >Enviar</button>
+  <h1> Apresente-se para nós!</h1>
+  <section class="formulario">
+    <form action="cad.php" method="get"></form>
+    <label for="nome">Nome</label>
+    <input type="text" name="Nome" id="idnome" placeholder="Nome" required>
+
+    <label for="sobrenome">Sobre Nome</label>
+    <input type="text" name="Sobre Nome" id="idsobrenome" placeholder="SobreNome" required>
+
+    <input class="btn" type="submit" value="Enviar">
 
     </form>
-  </div>
+  </section>
 </body>
 
 </html>
