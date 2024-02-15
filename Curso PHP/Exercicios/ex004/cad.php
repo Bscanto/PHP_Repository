@@ -13,11 +13,13 @@
 
   <main>
       <?php 
-          $nome = $_GET["nome"];
-          $sobrenome = $_GET["sobrenome"];
+          $nome = $_GET["nome"] ?? "Sem nome";
+          $sobrenome = $_GET["sobrenome"] ?? "Sem sobrenome";
           print "<p>É um prazer te conhecer, <strong>$nome $sobrenome</strong>! Este é meu site.</p>";
       
       ?>
+
+      <p><a href="javascript:history.go(-1)">Voltar para a página anterior</a></p>
     </main>
 </body>
 </html>
