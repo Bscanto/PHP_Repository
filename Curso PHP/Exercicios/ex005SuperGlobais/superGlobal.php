@@ -40,6 +40,11 @@
         echo "<br> $c -> $v <br>";
       }
 
+      echo "<h1>Superglobal SERVER</h1>";
+      var_dump($_SERVER);
+
+      echo "<h1>Superglobal GLOBALS</h1>";
+      var_dump($_GLOBALS);
 
 
       ?>
