@@ -1,6 +1,6 @@
-<?php
+<?php 
 require_once("../conexao.php");
-?>
+ ?>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="login.css" rel="stylesheet">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -46,29 +46,57 @@ require_once("../conexao.php");
 
 
 <div class="modal" id="modal-cadastrar" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Cadastre-se</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email </label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Salvar</button>
-            </div>
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cadastre-se</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
+    <form method="POST">
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Nome</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="nomeCad" aria-describedby="emailHelp" required="">
+
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email </label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="emailCad" aria-describedby="emailHelp" required="">
+
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">Senha</label>
+                <input type="text" class="form-control" name="senhaCad" id="exampleInputPassword1" required="">
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
+            <button type="submit" class="btn btn-primary" name="btn-cadastrar">Salvar</button>
+        </div>
+    </form>
 </div>
+</div>
+</div>
+
+
+<?php 
+if(isset($_POST['btn-cadastrar'])){
+        // prepare quando recebe dados de um formulario por segurança
+    $query = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, nivel) VALUES (:nome, :email, :senha, :nivel)");
+    $query->bindValue(":nome", $_POST['nomeCad']);
+    $query->bindValue(":email", $_POST['emailCad']);
+    $query->bindValue(":senha", $_POST['senhaCad']);
+    $query->bindValue(":nivel", 'Cliente');
+    $query->execute();
+
+    echo "<script language='javascript'>window.alert('Cadastrado com Sucesso')</script>";
+
+    }
+ ?>

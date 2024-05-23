@@ -24,7 +24,7 @@ if ($total_reg > 0) {
 
   if ($nivel == 'Administrador') {
     echo "<script language='javascript'>window.location='painel-adm'</script>";
-  } else if ($nivel == 'Clientes') {
+  } else if ($nivel == 'Cliente') {
     echo "<script language='javascript'>window.location='painel-cliente'</script>";
   } else {
     echo "<script language='javascript'>window.alert('Usuario Sem Permissão para acesso')</script>";
