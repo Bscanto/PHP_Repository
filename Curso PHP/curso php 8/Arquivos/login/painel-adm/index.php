@@ -55,14 +55,38 @@ echo 'Nome do Usuário: ' . $_SESSION['nome_usuario'] . ' e o nível do usuário
         </li>
         
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Buscar">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
+      <form method="GET" class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Buscar" name="txtBusca" >
+        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
       </form>
     </div>
   </div>
 </nav>
 
+<div class="container">
+<button class="btn btn-secondary mt-4" type="button">Novo Usuário</button>
+
+<table class="table table-striped mt-4">
+  <thead>
+    <tr>
+      <th scope="col">Nome</th>
+      <th scope="col">Email</th>
+      <th scope="col">Senha</th>
+      <th scope="col">Nível</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>@mdo</td>
+    </tr>
+    
+  </tbody>
+</table>
+
+</div>
   
 </body>
 </html>
