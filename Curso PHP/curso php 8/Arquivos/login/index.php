@@ -96,7 +96,7 @@ if(isset($_POST['btn-cadastrar'])){
     $query->bindValue(":nivel", 'Cliente');
     $query->execute();
 
-    echo "<script language='javascript'>window.alert('Cadastrado com Sucesso')</script>";
+    echo "<script language='javascript'>window.alert('Cadastrado  realizado com Sucesso')</script>";
 
     }
  ?>
