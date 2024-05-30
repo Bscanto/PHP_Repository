@@ -152,11 +152,47 @@ echo 'Nome do Usuário : ' . $_SESSION['nome_usuario'] .' e o nível do usuário
       </div>
       <div class="modal-body">
         
-      </div>
-      <div class="modal-footer">
+      <form method="POST">
+        <div class="modal-body">
+
+            <div class="form-group mb-2">
+                <label for="exampleInputEmail1">Nome</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="nomeCad" aria-describedby="emailHelp" required="">
+
+            </div>
+
+            <div class="form-group mb-2 ">
+                <label for="exampleInputEmail1">Email </label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="emailCad" aria-describedby="emailHelp" required="">
+
+            </div>
+
+            <div class="form-group mb-2 ">
+                <label for="exampleInputPassword1">Senha</label>
+                <input type="text" class="form-control" name="senhaCad" id="exampleInputPassword1" required="">
+            </div>
+
+
+            <div class="form-group mb-2">
+              <label for="exampleImputPassword1">Nível</label>
+              <select class="form-select mt-1" aria-label="Default select example"  name="nivelCad" id="">
+                <option value="Cliente">Cliente</option>
+                <option value="Administrador">Administrador</option>
+                <option value="Vendedor">Vendedor</option>
+                <option value="Tesoureiro">Tesoureiro</option>
+
+              </select>
+            </div>
+
+        </div>
+        <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
         <button type="button" class="btn btn-primary">Salvar</button>
       </div>
+    </form>
+
+      </div>
+      
     </div>
   </div>
 </div>
