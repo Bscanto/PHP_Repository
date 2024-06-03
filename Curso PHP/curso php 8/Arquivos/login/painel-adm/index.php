@@ -187,12 +187,43 @@ echo 'Nome do Usuário : ' . $_SESSION['nome_usuario'] .' e o nível do usuário
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Salvar</button>
+        <button name="btn-cadastrar" type="submit" class="btn btn-primary">Salvar</button>
       </div>
     </form>
 
       </div>
-      
     </div>
   </div>
 </div>
+
+
+
+
+
+<?php 
+if(isset($_POST['btn-cadastrar'])){
+        // prepare quando recebe dados de um formulario por segurança
+
+        $query_v = $pdo->prepare("SELECT * FROM usuarios where email = :email");
+$query_v->bindValue(":email", $_POST['emailCad']);
+$query_v->execute();
+
+$res_v = $query_v->fetchAll(PDO::FETCH_ASSOC);
+$total_reg_v = @count($res_v);
+
+if ($total_reg_v > 0) {
+
+}
+    $query = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, nivel) VALUES (:nome, :email, :senha, :nivel)");
+    $query->bindValue(":nome", $_POST['nomeCad']);
+    $query->bindValue(":email", $_POST['emailCad']);
+    $query->bindValue(":senha", $_POST['senhaCad']);
+    $query->bindValue(":nivel", $_POST['nivelCad']);
+    $query->execute();
+
+    echo "<script language='javascript'>window.alert('Cadastrado  realizado com Sucesso')</script>";
+
+    echo "<script language='javascript'>window.location='index.php'</script>";
+
+    }
+ ?>
