@@ -1,6 +1,6 @@
 <?php
 
-require_once ("../../conexao.php");
+require_once("../../conexao.php");
 @session_start();
 
 //VERIFICAR SE O USUÁRIO LOGADO É UM ADMINISTRADOR
@@ -66,7 +66,7 @@ echo 'Nome do Usuário : ' . $_SESSION['nome_usuario'] .' e o nível do usuário
   </nav>
 
   <div class="container">
-    <a href="index.php?funcao=novo" class="btn btn-secondary mt-4" type="button" data-bs-toggle="modal" data-bs-target="#modalCadastrar" >Novo Usuário</a>
+    <a href="index.php?funcao=novo" class="btn btn-secondary mt-4" type="button">Novo Usuário</a>
 
     <?php
     $txtBuscar = '%' . @$_GET['txtBuscar'] . '%';
@@ -79,7 +79,8 @@ echo 'Nome do Usuário : ' . $_SESSION['nome_usuario'] .' e o nível do usuário
 
     if ($total_reg > 0) {
 
-      ?>
+
+    ?>
 
       <table class="table table-striped mt-4">
         <thead>
@@ -97,7 +98,6 @@ echo 'Nome do Usuário : ' . $_SESSION['nome_usuario'] .' e o nível do usuário
 
           for ($i = 0; $i < $total_reg; $i++) {
             foreach ($res[$i] as $key => $value) {
-
             }
             $nome = $res[$i]['nome'];
             $email = $res[$i]['email'];
@@ -105,7 +105,7 @@ echo 'Nome do Usuário : ' . $_SESSION['nome_usuario'] .' e o nível do usuário
             $nivel = $res[$i]['nivel'];
             $id = $res[$i]['id'];
 
-            ?>
+          ?>
 
             <tr>
               <td><?php echo $nome ?></td>
@@ -128,54 +128,62 @@ echo 'Nome do Usuário : ' . $_SESSION['nome_usuario'] .' e o nível do usuário
               </td>
             </tr>
 
-          <?php
+        <?php
           }
-    } else {
-      echo '<p class="mt-4">Não existem dados para serem exibidos</p>';
-    }
+        } else {
+          echo '<p class="mt-4">Não existem dados para serem exibidos</p>';
+        }
 
-    ?>
+        ?>
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
   </div>
 
 </body>
+
 </html>
 
 <div class="modal fade" id="modalCadastrar" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Cadastrar Usuário</h5>
+        <?php 
+        if (@$_GET['funcao'] == 'editar'){
+          $titulo_modal = "Editar Registro";
+        }else {
+          $titulo_modal = "Inserir Registro";
+        }
+        ?>
+        <h5 class="modal-title"> <?php echo $titulo_modal?></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        
-      <form method="POST">
-        <div class="modal-body">
+
+        <form method="POST">
+          <div class="modal-body">
 
             <div class="form-group mb-2">
-                <label for="exampleInputEmail1">Nome</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" name="nomeCad" aria-describedby="emailHelp" required="">
+              <label for="exampleInputEmail1">Nome</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" name="nomeCad" aria-describedby="emailHelp" required="">
 
             </div>
 
             <div class="form-group mb-2 ">
-                <label for="exampleInputEmail1">Email </label>
-                <input type="email" class="form-control" id="exampleInputEmail1" name="emailCad" aria-describedby="emailHelp" required="">
+              <label for="exampleInputEmail1">Email </label>
+              <input type="email" class="form-control" id="exampleInputEmail1" name="emailCad" aria-describedby="emailHelp" required="">
 
             </div>
 
             <div class="form-group mb-2 ">
-                <label for="exampleInputPassword1">Senha</label>
-                <input type="text" class="form-control" name="senhaCad" id="exampleInputPassword1" required="">
+              <label for="exampleInputPassword1">Senha</label>
+              <input type="text" class="form-control" name="senhaCad" id="exampleInputPassword1" required="">
             </div>
 
 
             <div class="form-group mb-2">
               <label for="exampleImputPassword1">Nível</label>
-              <select class="form-select mt-1" aria-label="Default select example"  name="nivelCad" id="">
+              <select class="form-select mt-1" aria-label="Default select example" name="nivelCad" id="">
                 <option value="Cliente">Cliente</option>
                 <option value="Administrador">Administrador</option>
                 <option value="Vendedor">Vendedor</option>
@@ -184,12 +192,12 @@ echo 'Nome do Usuário : ' . $_SESSION['nome_usuario'] .' e o nível do usuário
               </select>
             </div>
 
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button name="btn-cadastrar" type="submit" class="btn btn-primary">Salvar</button>
-      </div>
-    </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button name="btn-cadastrar" type="submit" class="btn btn-primary">Salvar</button>
+          </div>
+        </form>
 
       </div>
     </div>
@@ -200,30 +208,46 @@ echo 'Nome do Usuário : ' . $_SESSION['nome_usuario'] .' e o nível do usuário
 
 
 
-<?php 
-if(isset($_POST['btn-cadastrar'])){
-        // prepare quando recebe dados de um formulario por segurança
+<?php
+if (isset($_POST['btn-cadastrar'])) {
+  // prepare quando recebe dados de um formulario por segurança
 
-        $query_v = $pdo->prepare("SELECT * FROM usuarios where email = :email");
-$query_v->bindValue(":email", $_POST['emailCad']);
-$query_v->execute();
+  $query_v = $pdo->prepare("SELECT * FROM usuarios where email = :email");
+  $query_v->bindValue(":email", $_POST['emailCad']);
+  $query_v->execute();
 
-$res_v = $query_v->fetchAll(PDO::FETCH_ASSOC);
-$total_reg_v = @count($res_v);
+  $res_v = $query_v->fetchAll(PDO::FETCH_ASSOC);
+  $total_reg_v = @count($res_v);
 
-if ($total_reg_v > 0) {
+  if ($total_reg_v > 0) {
+    echo "<script language='javascript'>window.alert('O Usuário já está cadastrado!!!')</script>";
+    exit();
+  }
+  $query = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, nivel) VALUES (:nome, :email, :senha, :nivel)");
+  $query->bindValue(":nome", $_POST['nomeCad']);
+  $query->bindValue(":email", $_POST['emailCad']);
+  $query->bindValue(":senha", $_POST['senhaCad']);
+  $query->bindValue(":nivel", $_POST['nivelCad']);
+  $query->execute();
 
+  echo "<script language='javascript'>window.alert('Cadastrado  realizado com Sucesso')</script>";
+
+  echo "<script language='javascript'>window.location='index.php'</script>";
 }
-    $query = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, nivel) VALUES (:nome, :email, :senha, :nivel)");
-    $query->bindValue(":nome", $_POST['nomeCad']);
-    $query->bindValue(":email", $_POST['emailCad']);
-    $query->bindValue(":senha", $_POST['senhaCad']);
-    $query->bindValue(":nivel", $_POST['nivelCad']);
-    $query->execute();
+?>
 
-    echo "<script language='javascript'>window.alert('Cadastrado  realizado com Sucesso')</script>";
+<?php 
+if(@$_GET['funcao'] == 'novo'){ ?>
+	<script>
+		var myModal = new bootstrap.Modal(document.getElementById('modalCadastrar'), {  keyboard: false });
+		myModal.show();
 
-    echo "<script language='javascript'>window.location='index.php'</script>";
+	</script>
+<?php } ?>
 
-    }
- ?>
+
+<?php
+if (isset($_GET['editar'])) {
+  echo "<script>$('#modalCadastrar'.modal('show'))</script>";
+}
+?>
