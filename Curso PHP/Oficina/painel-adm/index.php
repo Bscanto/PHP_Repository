@@ -2,8 +2,8 @@
 
     //variaveis para o menu
     $pag = @$_GET["pag"];
-    $menu1 = "mecanico";
-    $menu2 = "recepcionista";
+    $menu1 = "mecanicos";
+    $menu2 = "recepcionistas";
     $menu3 = "menu3";
     $menu4 = "menu4";
     $menu5 = "menu5";
@@ -40,8 +40,8 @@
         <script src="../vendor/jquery/jquery.min.js"></script>
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         
-         <link rel="shortcut icon" href="../../img/favicon0.ico" type="image/x-icon">
-    <link rel="icon" href="../../img/favicon0.ico" type="image/x-icon">
+         
+    <link rel="icon" href="../img/logo-favicon.ico" type="image/x-icon">
 
     </head>
 
@@ -83,7 +83,8 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">PESSOAS:</h6>
                             <a class="collapse-item" href="index.php?pag=<?php echo $menu1 ?>">Mecanicos</a>
-                            <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Menu 2</a>
+                            <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Recepcionista</a>
+
                         </div>
                     </div>
                 </li>
@@ -149,7 +150,7 @@
                         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                             <i class="fa fa-bars"></i>
                         </button>
-                        <img class="mt-2" src="../img/logo.png" width="150">
+                        <img  src="../img/logo2.png" width="70">
 
 
 
@@ -338,6 +339,12 @@
 
         <!-- Scripts personalizados em nível de página -->
         <script src="../js/demo/datatables-demo.js"></script>
+
+        <!-- Scripts para Mascara -->
+        <script src="../js/mascaras.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+        
 
     </body>
 
