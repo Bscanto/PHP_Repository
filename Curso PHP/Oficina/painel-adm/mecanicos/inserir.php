@@ -20,12 +20,13 @@ $id = $_POST['txtid2'];
 		exit();
 	}
 
-	$query = $pdo->prepare(" INSERT INTO mecanicos SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone ");
-$res->bindValue(":nome, $nome");
-$res->bindValue(":cpf, $cpf");
-$res->bindValue(":email, $email");
-$res->bindValue(":endereco, $endereco");
-$res->bindValue(":telefone, $telefone");
+	$res = $pdo->prepare(" INSERT INTO mecanicos SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone ");
+$res->bindValue(":nome", $nome);
+$res->bindValue(":cpf", $cpf);
+$res->bindValue(":telefone", $telefone);
+$res->bindValue(":email", $email);
+$res->bindValue(":endereco", $endereco);
+$res->execute();
  
- echo $total_reg
+ echo 'Salvo com Sucesso!';
 ?>
