@@ -8,6 +8,7 @@ $email = $_POST['email_mec'];
 $endereco = $_POST['endereco_mec'];
 
 $antigo = $_POST['antigo'];
+$antigo2 = $_POST['antigo2'];
 $id = $_POST['txtid2'];
 
 if($nome == ""){
@@ -37,6 +38,22 @@ if ($total_reg > 0) {
  }
 }
 //FIM DA VERIFICAÇÃO 
+
+
+//VERIFICAR SE O REGISTRO COM O MESMO EMAIL JÁ EXISTE NO BANCO
+if($antigo2 != $email){
+	$query = $pdo->query("SELECT * FROM mecanicos where email = '$email' ");
+	$res = $query->fetchAll(PDO::FETCH_ASSOC);
+	$total_reg = @count($res);
+	if ($total_reg > 0) {
+		echo 'O Email já está Cadastrado!';
+		exit();
+	 }
+	}
+	//FIM DA VERIFICAÇÃO 
+
+
+
 
 if ($id == "") {
 	$res = $pdo->prepare(" INSERT INTO mecanicos SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone ");
