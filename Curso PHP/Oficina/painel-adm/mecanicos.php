@@ -276,8 +276,6 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 
 
-
-
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
 	$(document).ready(function () {

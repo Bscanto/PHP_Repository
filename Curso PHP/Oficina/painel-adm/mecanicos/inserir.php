@@ -10,6 +10,21 @@ $endereco = $_POST['endereco_mec'];
 $antigo = $_POST['antigo'];
 $id = $_POST['txtid2'];
 
+if($nome == ""){
+	echo 'O nome é Obrigatório!';
+	exit();
+}
+
+if($email == ""){
+	echo 'O email é Obrigatório!';
+	exit();
+}
+
+if($cpf == ""){
+	echo 'O CPF é Obrigatório!';
+	exit();
+}
+
 
 //VERIFICAR SE O REGISTRO JÁ EXISTE NO BANCO
 if($antigo != $cpf){
