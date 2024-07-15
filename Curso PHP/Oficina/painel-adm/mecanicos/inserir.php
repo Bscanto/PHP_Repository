@@ -26,7 +26,6 @@ if($cpf == ""){
 	exit();
 }
 
-
 //VERIFICAR SE O REGISTRO JÁ EXISTE NO BANCO
 if($antigo != $cpf){
 $query = $pdo->query("SELECT * FROM mecanicos where cpf = '$cpf' ");
@@ -57,6 +56,9 @@ if($antigo2 != $email){
 
 if ($id == "") {
 	$res = $pdo->prepare(" INSERT INTO mecanicos SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone ");
+
+	$res2 = $pdo->prepare(" INSERT INTO usuarios SET nome = :nome, cpf = :cpf, email = :email, senha = :senha, nivel = :nivel ");
+
 } else {
 	$res = $pdo->prepare("UPDATE mecanicos SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone WHERE id = :id");
 	$res->bindValue(":id", $id);
@@ -66,6 +68,14 @@ $res->bindValue(":cpf", $cpf);
 $res->bindValue(":telefone", $telefone);
 $res->bindValue(":email", $email);
 $res->bindValue(":endereco", $endereco);
+
+$res2->bindValue(":nome", $nome);
+$res2->bindValue(":cpf", $cpf);
+$res2->bindValue(":senha", '123');
+$res2->bindValue(":email", $email);
+$res2->bindValue(":nivel", 'mecanico');
+
 $res->execute();
+$res2->execute();
 
 echo 'Salvo com Sucesso!';
