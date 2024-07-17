@@ -58,10 +58,15 @@ if ($id == "") {
 	$res = $pdo->prepare(" INSERT INTO mecanicos SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone ");
 
 	$res2 = $pdo->prepare(" INSERT INTO usuarios SET nome = :nome, cpf = :cpf, email = :email, senha = :senha, nivel = :nivel ");
+$res2->bindValue(":senha", '123');
+$res2->bindValue(":nivel", 'mecanico');
 
 } else {
-	$res = $pdo->prepare("UPDATE mecanicos SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone WHERE id = :id");
-	$res->bindValue(":id", $id);
+	$res = $pdo->prepare("UPDATE mecanicos SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone WHERE id = $id");
+
+	$res2 = $pdo->prepare("UPDATE usuarios SET nome = :nome, cpf = :cpf, email = :email WHERE cpf = $antigo ");
+	
+	
 }
 $res->bindValue(":nome", $nome);
 $res->bindValue(":cpf", $cpf);
@@ -71,9 +76,9 @@ $res->bindValue(":endereco", $endereco);
 
 $res2->bindValue(":nome", $nome);
 $res2->bindValue(":cpf", $cpf);
-$res2->bindValue(":senha", '123');
+
 $res2->bindValue(":email", $email);
-$res2->bindValue(":nivel", 'mecanico');
+
 
 $res->execute();
 $res2->execute();
