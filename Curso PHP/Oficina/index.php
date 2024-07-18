@@ -211,10 +211,13 @@
   <div align="center" class="mb-4">
   <img src="img/logo-branca2.png" width="120">
   </div>
-  <form method="post">
+  <form method="post" action="autenticar.php">
     <input type="text" name="email" placeholder="Email" required="required" />
     <input type="password" name="senha" placeholder="Senha" required="required" />
     <button type="submit" class="btn btn-ligth btn-block btn-large">Logar</button>
+    <div align="center" class="mt-2">
+    <small><a href="" title="Clique para recuperar sua senha" class="text-ligth">Recuperar Senha?</a></small>
+  </div>
   </form>
 </div>
 <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
