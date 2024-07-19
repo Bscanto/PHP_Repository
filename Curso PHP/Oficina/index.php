@@ -209,7 +209,7 @@
 
 <div class="login">
   <div align="center" class="mb-4">
-  <img src="img/logo-branca2.png" width="120">
+  <img src="img/logo-horizontal-branca.png" width="250">
   </div>
   <form method="post" action="autenticar.php">
     <input type="text" name="email" placeholder="Email" required="required" />

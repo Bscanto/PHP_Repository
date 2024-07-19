@@ -8,7 +8,19 @@ $query = $pdo->query("SELECT * FROM usuarios where email = '$email' and senha = 
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
   if($total_reg > 0){
-    echo 'Usuario Existente';
+    
+    $nivel = $res[0]['nivel'];
+    if($nivel == 'Admin'){
+      
+    }
+
+    if($nivel == 'mecanico'){
+      
+    }
+
+    if($nivel == 'recep'){
+      
+    }
 
   }else{
     echo 'Usuario não Existente';
