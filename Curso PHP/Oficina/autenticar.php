@@ -10,20 +10,21 @@ $total_reg = @count($res);
   if($total_reg > 0){
     
     $nivel = $res[0]['nivel'];
-    if($nivel == 'Admin'){
-      
+    if($nivel == 'admin'){
+      echo "<script language='javascript'> window.location='painel-adm' </script> ";
     }
 
     if($nivel == 'mecanico'){
-      
+      echo "<script language='javascript'> window.location='painel-mecanico' </script> ";
     }
-
+    
     if($nivel == 'recep'){
-      
+      echo "<script language='javascript'> window.location='painel-recepcao' </script> ";
     }
 
   }else{
-    echo 'Usuario não Existente';
+    echo "<script language='javascript'> window.alert('Usuário ou Senha Incorreta!') </script> ";
+    echo "<script language='javascript'> window.location='index.php' </script> ";   
   }
 
 
