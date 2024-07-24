@@ -1,4 +1,9 @@
 <?php
+@session_start();
+
+if(isset(@$_SESSION['nivel_usuario'] and @$_SESSION['nivel_usuario'] == 'admin')){
+    
+}
 
 //variaveis para o menu
 $pag = @$_GET["pag"];
@@ -162,7 +167,7 @@ $menu6 = "menu6";
                         <!-- Item de navegação - Informações do usuário -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nome do usuario</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['nome_usuario']?></span>
                                 <img class="img-profile rounded-circle" src="../img/sem-foto.jpg">
 
                             </a>

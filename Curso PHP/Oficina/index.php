@@ -1,16 +1,16 @@
 <?php 
 require_once("conexao.php");
 
-$query = $pdo->query("SELECT * FROM usuarios where nivel= 'admin' ");
+//CRIAR AUTOMATICAMENTE O USUARIO ADMIN
+$query = $pdo->prepare("SELECT * FROM usuarios where nivel = 'admin'");
+
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
-  if($total_reg == 0){
-    $res2 = $pdo->query(" INSERT INTO usuarios SET nome = :nome, cpf = :cpf, email = :email, senha = :senha, nivel = :nivel ");
-    }
+if($total_reg == 0){
+	$res = $pdo->query("INSERT INTO usuarios SET nome = 'Administrador', cpf = '000.000.000-00', email = '$email_adm', senha = '123', nivel = 'admin'");	
+}
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
