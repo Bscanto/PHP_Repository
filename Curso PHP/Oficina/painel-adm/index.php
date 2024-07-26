@@ -1,9 +1,11 @@
 <?php
 @session_start();
 
-if(isset(@$_SESSION['nivel_usuario'] and @$_SESSION['nivel_usuario'] == 'admin')){
-    
-}
+if(@$_SESSION['nivel_usuario'] != null and @$_SESSION['nivel_usuario'] == 'admin'){
+    @$_SESSION['nivel_usuario'];
+    echo 'Admin existente';
+}@$_SESSION['nivel_usuario'];
+echo 'Admin não Existente';
 
 //variaveis para o menu
 $pag = @$_GET["pag"];
