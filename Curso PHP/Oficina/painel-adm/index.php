@@ -1,11 +1,19 @@
 <?php
+require_once("../conexao.php");
+
 @session_start();
 
-if(@$_SESSION['nivel_usuario'] != null and @$_SESSION['nivel_usuario'] == 'admin'){
-    @$_SESSION['nivel_usuario'];
-    echo 'Admin existente';
-}@$_SESSION['nivel_usuario'];
-echo 'Admin não Existente';
+if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'admin'){
+    echo "<script language='javascript'> window.location='../index.php' </script> ";
+}
+
+
+//RECUPERAR DADOS USUARIO
+$query = $pdo->query("SELECT * FROM usuarios where id = '$_SESSION[id_usuario]' ");
+	$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$nome_usu = @$res[0]['nome'];
+$cpf_usu = @$res[0]['cpf'];
+$email_usu = @$res[0]['email'];
 
 //variaveis para o menu
 $pag = @$_GET["pag"];
@@ -241,7 +249,7 @@ $menu6 = "menu6";
 
     <!--  Modal Perfil-->
     <div class="modal fade" id="ModalPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Editar Perfil</h5>
@@ -255,42 +263,28 @@ $menu6 = "menu6";
                 <form id="form-perfil" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
 
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
+                       
                                 <div class="form-group">
                                     <label>Nome</label>
-                                    <input value="<?php echo $nome ?>" type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
+                                    <input value="<?php echo $nome_usu ?>" type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
                                 </div>
 
                                 <div class="form-group">
                                     <label>CPF</label>
-                                    <input value="<?php echo $cpf ?>" type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF">
+                                    <input value="<?php echo $cpf_usu ?>" type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input value="<?php echo $email ?>" type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                    <input value="<?php echo $email_usu ?>" type="email" class="form-control" id="email" name="email" placeholder="Email">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Senha</label>
                                     <input value="" type="password" class="form-control" id="text" name="senha" placeholder="Senha">
                                 </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="col-md-12 form-group">
-                                    <label>Foto</label>
-                                    <input value="<?php echo $img ?>" type="file" class="form-control-file" id="imagem" name="imagem" onchange="carregarImg();">
-
-                                </div>
-                                <div class="col-md-12 mb-2">
-                                    <img src="../img/profiles/<?php echo $img ?>" alt="Carregue sua Imagem" id="target" width="100%">
-                                </div>
-                            </div>
-                        </div>
-
-
-
+                            
+                    
                         <small>
                             <div id="mensagem" class="mr-4">
 

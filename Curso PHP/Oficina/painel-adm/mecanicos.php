@@ -1,5 +1,12 @@
 <?php 
 
+@session_start();
+//Verifica se o usuario está cadastrado
+if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'admin'){
+    echo "<script language='javascript'> window.location='../index.php' </script> ";
+}
+
+
 $pag = "mecanicos";
 require_once("../conexao.php"); 
 
