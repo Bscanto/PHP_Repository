@@ -7,7 +7,6 @@ if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'admin'
     echo "<script language='javascript'> window.location='../index.php' </script> ";
 }
 
-
 //RECUPERAR DADOS USUARIO
 $query = $pdo->query("SELECT * FROM usuarios where id = '$_SESSION[id_usuario]' ");
 	$res = $query->fetchAll(PDO::FETCH_ASSOC);
