@@ -76,7 +76,6 @@ $res->bindValue(":endereco", $endereco);
 
 $res2->bindValue(":nome", $nome);
 $res2->bindValue(":cpf", $cpf);
-
 $res2->bindValue(":email", $email);
 
 

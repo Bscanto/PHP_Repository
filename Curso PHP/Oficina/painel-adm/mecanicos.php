@@ -1,11 +1,8 @@
 <?php 
-
 @session_start();
-//Verifica se o usuario está cadastrado
 if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'admin'){
-    echo "<script language='javascript'> window.location='../index.php' </script> ";
+    echo "<script language='javascript'> window.location='../index.php' </script>";
 }
-
 
 $pag = "mecanicos";
 require_once("../conexao.php"); 
@@ -15,8 +12,9 @@ require_once("../conexao.php");
 ?>
 
 <div class="row mt-4 mb-4">
-	<a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Mecânico</a>
+	<a type="button" class="btn-secondary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Mecânico</a>
 	<a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
+
 </div>
 
 
@@ -42,7 +40,6 @@ require_once("../conexao.php");
 
 					<?php 
 
-
 					$query = $pdo->query("SELECT * FROM mecanicos order by id desc ");
 					$res = $query->fetchAll(PDO::FETCH_ASSOC);
 					
@@ -66,7 +63,6 @@ require_once("../conexao.php");
 
 							<td>
 								<a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
-								 
 								<a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
 							</td>
 						</tr>
@@ -283,6 +279,8 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 
 
+
+
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -336,9 +334,6 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 </script>
 
 
-
-
-
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('#dataTable').dataTable({
@@ -347,6 +342,3 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 	});
 </script>
-
-
-
