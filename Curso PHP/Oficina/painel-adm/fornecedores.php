@@ -1,11 +1,11 @@
-<?php 
+<?php
 @session_start();
-if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'admin'){
-    echo "<script language='javascript'> window.location='../index.php' </script>";
+if (@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'admin') {
+	echo "<script language='javascript'> window.location='../index.php' </script>";
 }
 
 $pag = "fornecedores";
-require_once("../conexao.php"); 
+require_once("../conexao.php");
 
 
 
@@ -39,12 +39,12 @@ require_once("../conexao.php");
 
 				<tbody>
 
-					<?php 
+					<?php
 
 					$query = $pdo->query("SELECT * FROM fornecedores order by id desc ");
 					$res = $query->fetchAll(PDO::FETCH_ASSOC);
-					
-					for ($i=0; $i < @count($res); $i++) { 
+
+					for ($i = 0; $i < @count($res); $i++) {
 						foreach ($res[$i] as $key => $value) {
 						}
 						$nome = $res[$i]['nome'];
@@ -54,7 +54,7 @@ require_once("../conexao.php");
 						$endereco = $res[$i]['endereco'];
 						$email = $res[$i]['email'];
 						$id = $res[$i]['id'];
-						?>
+					?>
 
 						<tr>
 							<td><?php echo $nome ?></td>
@@ -90,7 +90,7 @@ require_once("../conexao.php");
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<?php 
+				<?php
 				if (@$_GET['funcao'] == 'editar') {
 					$titulo = "Editar Registro";
 					$id2 = $_GET['id'];
@@ -103,11 +103,8 @@ require_once("../conexao.php");
 					$telefone2 = $res[0]['telefone'];
 					$email2 = $res[0]['email'];
 					$endereco2 = $res[0]['endereco'];
-
-
 				} else {
 					$titulo = "Inserir Registro";
-
 				}
 
 
@@ -121,39 +118,48 @@ require_once("../conexao.php");
 			<form id="form" method="POST">
 				<div class="modal-body">
 
-					<div class="form-group">
-						<label >Nome</label>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Nome</label>
+								<input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome_mec" name="nome_mec" placeholder="Nome">
+							</div>
+						</div>
+
+						<div class="col-md-6">
+						<label>Tipo Pessoa</label>
 						<input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome_mec" name="nome_mec" placeholder="Nome">
+						</div>
 					</div>
 
-					
+
 
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label >CPF</label>
+								<label>CPF</label>
 								<input value="<?php echo @$cpf2 ?>" type="text" class="form-control" id="cpf" name="cpf_mec" placeholder="CPF">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label >Telefone</label>
+								<label>Telefone</label>
 								<input value="<?php echo @$telefone2 ?>" type="text" class="form-control" id="telefone" name="telefone_mec" placeholder="Telefone">
 							</div>
 						</div>
 					</div>
 
-					
 
-					
+
+
 
 					<div class="form-group">
-						<label >Email</label>
+						<label>Email</label>
 						<input value="<?php echo @$email2 ?>" type="text" class="form-control" id="email" name="email_mec" placeholder="Email">
 					</div>
 
 					<div class="form-group">
-						<label >Endereço</label>
+						<label>Endereço</label>
 						<input value="<?php echo @$endereco2 ?>" type="text" class="form-control" id="endereco" name="endereco_mec" placeholder="Endereçõ">
 					</div>
 
@@ -162,7 +168,7 @@ require_once("../conexao.php");
 						<div id="mensagem">
 
 						</div>
-					</small> 
+					</small>
 
 				</div>
 
@@ -211,7 +217,7 @@ require_once("../conexao.php");
 				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir">Cancelar</button>
 				<form method="post">
 
-					<input type="hidden" id="id"  name="id" value="<?php echo @$_GET['id'] ?>" required>
+					<input type="hidden" id="id" name="id" value="<?php echo @$_GET['id'] ?>" required>
 
 					<button type="button" id="btn-deletar" name="btn-deletar" class="btn btn-danger">Excluir</button>
 				</form>
@@ -224,7 +230,7 @@ require_once("../conexao.php");
 
 
 
-<?php 
+<?php
 
 if (@$_GET["funcao"] != null && @$_GET["funcao"] == "novo") {
 	echo "<script>$('#modalDados').modal('show');</script>";
@@ -245,8 +251,8 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 <!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM OU SEM IMAGEM -->
 <script type="text/javascript">
-	$("#form").submit(function () {
-		var pag = "<?=$pag?>";
+	$("#form").submit(function() {
+		var pag = "<?= $pag ?>";
 		event.preventDefault();
 		var formData = new FormData(this);
 
@@ -255,31 +261,31 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 			type: 'POST',
 			data: formData,
 
-			success: function (mensagem) {
+			success: function(mensagem) {
 				$('#mensagem').removeClass()
 				if (mensagem.trim() == "Salvo com Sucesso!") {
-                    //$('#nome').val('');
-                    $('#btn-fechar').click();
-                    window.location = "index.php?pag="+pag;
-                } else {
-                	$('#mensagem').addClass('text-danger')
-                }
-                $('#mensagem').text(mensagem)
-            },
+					//$('#nome').val('');
+					$('#btn-fechar').click();
+					window.location = "index.php?pag=" + pag;
+				} else {
+					$('#mensagem').addClass('text-danger')
+				}
+				$('#mensagem').text(mensagem)
+			},
 
-            cache: false,
-            contentType: false,
-            processData: false,
-            xhr: function () {  // Custom XMLHttpRequest
-            	var myXhr = $.ajaxSettings.xhr();
-                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
-                	myXhr.upload.addEventListener('progress', function () {
-                		/* faz alguma coisa durante o progresso do upload */
-                	}, false);
-                }
-                return myXhr;
-            }
-        });
+			cache: false,
+			contentType: false,
+			processData: false,
+			xhr: function() { // Custom XMLHttpRequest
+				var myXhr = $.ajaxSettings.xhr();
+				if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+					myXhr.upload.addEventListener('progress', function() {
+						/* faz alguma coisa durante o progresso do upload */
+					}, false);
+				}
+				return myXhr;
+			}
+		});
 	});
 </script>
 
@@ -289,16 +295,16 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
-	$(document).ready(function () {
-		var pag = "<?=$pag?>";
-		$('#btn-deletar').click(function (event) {
+	$(document).ready(function() {
+		var pag = "<?= $pag ?>";
+		$('#btn-deletar').click(function(event) {
 			event.preventDefault();
 			$.ajax({
 				url: pag + "/excluir.php",
 				method: "post",
 				data: $('form').serialize(),
 				dataType: "text",
-				success: function (mensagem) {
+				success: function(mensagem) {
 
 					if (mensagem.trim() === 'Excluído com Sucesso!') {
 						$('#btn-cancelar-excluir').click();
@@ -317,14 +323,13 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 <!--SCRIPT PARA CARREGAR IMAGEM -->
 <script type="text/javascript">
-
 	function carregarImg() {
 
 		var target = document.getElementById('target');
 		var file = document.querySelector("input[type=file]").files[0];
 		var reader = new FileReader();
 
-		reader.onloadend = function () {
+		reader.onloadend = function() {
 			target.src = reader.result;
 		};
 
@@ -336,12 +341,11 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 			target.src = "";
 		}
 	}
-
 </script>
 
 
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(document).ready(function() {
 		$('#dataTable').dataTable({
 			"ordering": false
 		})
