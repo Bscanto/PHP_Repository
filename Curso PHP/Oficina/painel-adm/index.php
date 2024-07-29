@@ -18,7 +18,7 @@ $email_usu = @$res[0]['email'];
     $pag = @$_GET["pag"];
     $menu1 = "mecanicos";
     $menu2 = "recepcionistas";
-    $menu3 = "menu3";
+    $menu3 = "fornecedores";
     $menu4 = "menu4";
     $menu5 = "menu5";
     $menu6 = "menu6";
@@ -100,6 +100,8 @@ $email_usu = @$res[0]['email'];
                             
                             <a class="collapse-item" href="index.php?pag=<?php echo $menu1 ?>">Mecanicos</a>
                             <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Recepcionistas</a>
+                            <a class="collapse-item" href="index.php?pag=<?php echo $menu3 ?>">Fornecedores</a>
+
                         </div>
                     </div>
                 </li>

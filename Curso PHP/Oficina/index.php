@@ -88,8 +88,7 @@ if($total_reg == 0){
 	.input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); }
 </style>
 
-
-
+</script>
 </head>
 <body>
 
@@ -109,13 +108,9 @@ if($total_reg == 0){
 		</form>
 	</div>
 
-
-
 </script>
 </body>
 </html>
-
-
 
 
 
