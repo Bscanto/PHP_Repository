@@ -127,26 +127,42 @@ require_once("../conexao.php");
 						</div>
 
 						<div class="col-md-6">
-						<label>Tipo Pessoa</label>
-						<input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome_mec" name="nome_mec" placeholder="Nome">
+							<div class="form-group">
+								<label>Tipo Pessoa</label>
+								<select class="form-select" id="exampleFormControlSelect">
+									<option value="Física">Física</option>
+									<option value="Jurídica">Jurídica</option>
+								</select>
+							</div>
 						</div>
 					</div>
 
 
 
 					<div class="row">
-						<div class="col-md-6">
+
+						<div class="col-md-6" id="divcpf">
 							<div class="form-group">
 								<label>CPF</label>
 								<input value="<?php echo @$cpf2 ?>" type="text" class="form-control" id="cpf" name="cpf_mec" placeholder="CPF">
 							</div>
 						</div>
+
+						<div class="col-md-6" id="divcnpj">
+							<div class="form-group">
+								<label>CNPJ</label>
+								<input value="<?php echo @$cpf2 ?>" type="text" class="form-control" id="cnpj" name="cnpj_mec" placeholder="CNPJ">
+							</div>
+						</div>
+
+
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Telefone</label>
 								<input value="<?php echo @$telefone2 ?>" type="text" class="form-control" id="telefone" name="telefone_mec" placeholder="Telefone">
 							</div>
 						</div>
+
 					</div>
 
 
@@ -290,9 +306,6 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 </script>
 
 
-
-
-
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -351,4 +364,11 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 		})
 
 	});
+</script>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+	})
 </script>
