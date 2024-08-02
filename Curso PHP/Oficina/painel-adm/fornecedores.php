@@ -129,7 +129,7 @@ require_once("../conexao.php");
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Tipo Pessoa</label>
-								<select class="form-select" id="exampleFormControlSelect">
+								<select class="form-select" id="pessoa">
 									<option value="Física">Física</option>
 									<option value="Jurídica">Jurídica</option>
 								</select>
@@ -371,5 +371,8 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 	$(document).ready(function(){
 		document.getElementById('divcnpj').style.display = "none"
 	})
-	
+
+	$('#pessoa').click(function(event) {
+
+	});
 </script>
