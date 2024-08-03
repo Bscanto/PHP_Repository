@@ -372,7 +372,16 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 		document.getElementById('divcnpj').style.display = "none"
 	})
 
-	$('#pessoa').click(function(event) {
-
-	});
+	$('#pessoa').change(function (event) {
+  	var select = document.getElementById('pessoa');
+  	var value = select.options[select.selectedIndex].value;
+  	if(value === 'Física'){
+  		document.getElementById('divcnpj').style.display = "none";
+  		document.getElementById('divcpf').style.display = "block";
+  	}else{
+  		document.getElementById('divcnpj').style.display = "block";
+  		document.getElementById('divcpf').style.display = "none";
+  	}
+  	
+  });
 </script>

@@ -2,6 +2,7 @@
 require_once("../../conexao.php");
 
 $nome = $_POST['nome_mec'];
+$nome = $_POST['nome_mec'];
 $telefone = $_POST['telefone_mec'];
 $cpf = $_POST['cpf_mec'];
 $email = $_POST['email_mec'];
