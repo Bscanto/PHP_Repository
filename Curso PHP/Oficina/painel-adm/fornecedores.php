@@ -129,7 +129,7 @@ require_once("../conexao.php");
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Tipo Pessoa</label>
-								<select class="form-select" id="pessoa">
+								<select  name="tipo_pessoa" class="form-select" id="pessoa">
 									<option value="Física">Física</option>
 									<option value="Jurídica">Jurídica</option>
 								</select>
