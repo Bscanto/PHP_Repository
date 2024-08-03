@@ -1,18 +1,18 @@
-<?php
+<?php 
 @session_start();
-if (@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'admin') {
+if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'admin'){
 	echo "<script language='javascript'> window.location='../index.php' </script>";
 }
 
 $pag = "fornecedores";
-require_once("../conexao.php");
+require_once("../conexao.php"); 
 
-
+$tipo_pessoa2 = "Física";
 
 ?>
 
 <div class="row mt-4 mb-4">
-	<a type="button" class="btn-secondary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Fornecedores</a>
+	<a type="button" class="btn-secondary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Fornecedor</a>
 	<a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
 
 </div>
@@ -39,12 +39,12 @@ require_once("../conexao.php");
 
 				<tbody>
 
-					<?php
+					<?php 
 
 					$query = $pdo->query("SELECT * FROM fornecedores order by id desc ");
 					$res = $query->fetchAll(PDO::FETCH_ASSOC);
-
-					for ($i = 0; $i < @count($res); $i++) {
+					
+					for ($i=0; $i < @count($res); $i++) { 
 						foreach ($res[$i] as $key => $value) {
 						}
 						$nome = $res[$i]['nome'];
@@ -54,7 +54,7 @@ require_once("../conexao.php");
 						$endereco = $res[$i]['endereco'];
 						$email = $res[$i]['email'];
 						$id = $res[$i]['id'];
-					?>
+						?>
 
 						<tr>
 							<td><?php echo $nome ?></td>
@@ -90,7 +90,7 @@ require_once("../conexao.php");
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<?php
+				<?php 
 				if (@$_GET['funcao'] == 'editar') {
 					$titulo = "Editar Registro";
 					$id2 = $_GET['id'];
@@ -103,8 +103,11 @@ require_once("../conexao.php");
 					$telefone2 = $res[0]['telefone'];
 					$email2 = $res[0]['email'];
 					$endereco2 = $res[0]['endereco'];
+
+
 				} else {
 					$titulo = "Inserir Registro";
+
 				}
 
 
@@ -120,62 +123,60 @@ require_once("../conexao.php");
 
 					<div class="row">
 						<div class="col-md-6">
+
 							<div class="form-group">
-								<label>Nome</label>
+								<label >Nome</label>
 								<input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome_mec" name="nome_mec" placeholder="Nome">
 							</div>
-						</div>
 
+						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label>Tipo Pessoa</label>
-								<select  name="tipo_pessoa" class="form-select" id="pessoa">
-									<option value="Física">Física</option>
-									<option value="Jurídica">Jurídica</option>
+								<label >Tipo Pessoa</label>
+								<select name="tipo_pessoa" class="form-control" id="pessoa">
+									<option <?php if($tipo_pessoa2 == 'Física'){ ?> selected <?php } ?> value="Física">Física</option>
+									<option <?php if($tipo_pessoa2 == 'Jurídica'){ ?> selected <?php } ?> value="Jurídica">Jurídica</option>
+									
 								</select>
 							</div>
 						</div>
 					</div>
 
-
-
 					<div class="row">
 
 						<div class="col-md-6" id="divcpf">
 							<div class="form-group">
-								<label>CPF</label>
+								<label >CPF</label>
 								<input value="<?php echo @$cpf2 ?>" type="text" class="form-control" id="cpf" name="cpf_mec" placeholder="CPF">
 							</div>
 						</div>
 
 						<div class="col-md-6" id="divcnpj">
 							<div class="form-group">
-								<label>CNPJ</label>
+								<label >CNPJ</label>
 								<input value="<?php echo @$cpf2 ?>" type="text" class="form-control" id="cnpj" name="cnpj_mec" placeholder="CNPJ">
 							</div>
 						</div>
 
-
 						<div class="col-md-6">
 							<div class="form-group">
-								<label>Telefone</label>
+								<label >Telefone</label>
 								<input value="<?php echo @$telefone2 ?>" type="text" class="form-control" id="telefone" name="telefone_mec" placeholder="Telefone">
 							</div>
 						</div>
-
 					</div>
 
+					
 
-
-
+					
 
 					<div class="form-group">
-						<label>Email</label>
+						<label >Email</label>
 						<input value="<?php echo @$email2 ?>" type="text" class="form-control" id="email" name="email_mec" placeholder="Email">
 					</div>
 
 					<div class="form-group">
-						<label>Endereço</label>
+						<label >Endereço</label>
 						<input value="<?php echo @$endereco2 ?>" type="text" class="form-control" id="endereco" name="endereco_mec" placeholder="Endereçõ">
 					</div>
 
@@ -184,7 +185,7 @@ require_once("../conexao.php");
 						<div id="mensagem">
 
 						</div>
-					</small>
+					</small> 
 
 				</div>
 
@@ -224,16 +225,14 @@ require_once("../conexao.php");
 
 				<p>Deseja realmente Excluir este Registro?</p>
 
-				<div align="center" id="mensagem_excluir" class="">
-
-				</div>
+				<small><div align="center" id="mensagem_excluir" class="">	</div></small>
 
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir">Cancelar</button>
 				<form method="post">
 
-					<input type="hidden" id="id" name="id" value="<?php echo @$_GET['id'] ?>" required>
+					<input type="hidden" id="id"  name="id" value="<?php echo @$_GET['id'] ?>" required>
 
 					<button type="button" id="btn-deletar" name="btn-deletar" class="btn btn-danger">Excluir</button>
 				</form>
@@ -246,7 +245,7 @@ require_once("../conexao.php");
 
 
 
-<?php
+<?php 
 
 if (@$_GET["funcao"] != null && @$_GET["funcao"] == "novo") {
 	echo "<script>$('#modalDados').modal('show');</script>";
@@ -267,8 +266,8 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 <!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM OU SEM IMAGEM -->
 <script type="text/javascript">
-	$("#form").submit(function() {
-		var pag = "<?= $pag ?>";
+	$("#form").submit(function () {
+		var pag = "<?=$pag?>";
 		event.preventDefault();
 		var formData = new FormData(this);
 
@@ -277,51 +276,56 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 			type: 'POST',
 			data: formData,
 
-			success: function(mensagem) {
+			success: function (mensagem) {
 				$('#mensagem').removeClass()
 				if (mensagem.trim() == "Salvo com Sucesso!") {
-					//$('#nome').val('');
-					$('#btn-fechar').click();
-					window.location = "index.php?pag=" + pag;
-				} else {
-					$('#mensagem').addClass('text-danger')
-				}
-				$('#mensagem').text(mensagem)
-			},
+                    //$('#nome').val('');
+                    $('#btn-fechar').click();
+                    window.location = "index.php?pag="+pag;
+                } else {
+                	$('#mensagem').addClass('text-danger')
+                }
+                $('#mensagem').text(mensagem)
+            },
 
-			cache: false,
-			contentType: false,
-			processData: false,
-			xhr: function() { // Custom XMLHttpRequest
-				var myXhr = $.ajaxSettings.xhr();
-				if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
-					myXhr.upload.addEventListener('progress', function() {
-						/* faz alguma coisa durante o progresso do upload */
-					}, false);
-				}
-				return myXhr;
-			}
-		});
+            cache: false,
+            contentType: false,
+            processData: false,
+            xhr: function () {  // Custom XMLHttpRequest
+            	var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+                	myXhr.upload.addEventListener('progress', function () {
+                		/* faz alguma coisa durante o progresso do upload */
+                	}, false);
+                }
+                return myXhr;
+            }
+        });
 	});
 </script>
 
 
+
+
+
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
-	$(document).ready(function() {
-		var pag = "<?= $pag ?>";
-		$('#btn-deletar').click(function(event) {
+	$(document).ready(function () {
+		var pag = "<?=$pag?>";
+		$('#btn-deletar').click(function (event) {
 			event.preventDefault();
 			$.ajax({
 				url: pag + "/excluir.php",
 				method: "post",
 				data: $('form').serialize(),
 				dataType: "text",
-				success: function(mensagem) {
+				success: function (mensagem) {
 
 					if (mensagem.trim() === 'Excluído com Sucesso!') {
 						$('#btn-cancelar-excluir').click();
 						window.location = "index.php?pag=" + pag;
+					}else{
+						$('#mensagem_excluir').addClass('text-danger')
 					}
 					$('#mensagem_excluir').text(mensagem)
 
@@ -334,31 +338,10 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 
 
-<!--SCRIPT PARA CARREGAR IMAGEM -->
-<script type="text/javascript">
-	function carregarImg() {
-
-		var target = document.getElementById('target');
-		var file = document.querySelector("input[type=file]").files[0];
-		var reader = new FileReader();
-
-		reader.onloadend = function() {
-			target.src = reader.result;
-		};
-
-		if (file) {
-			reader.readAsDataURL(file);
-
-
-		} else {
-			target.src = "";
-		}
-	}
-</script>
 
 
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function () {
 		$('#dataTable').dataTable({
 			"ordering": false
 		})
@@ -367,12 +350,18 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 </script>
 
 
-<script type="text/javascript">
-	$(document).ready(function(){
-		document.getElementById('divcnpj').style.display = "none"
-	})
 
-	$('#pessoa').change(function (event) {
+<script type="text/javascript">
+  var pessoa = "<?=$tipo_pessoa2?>";
+   $(document).ready(function() {
+  	if(pessoa === "Física"){
+      document.getElementById('divcnpj').style.display = "none"; 
+  	}else{
+  	  document.getElementById('divcpf').style.display = "none";
+  	}
+})
+
+  $('#pessoa').change(function (event) {
   	var select = document.getElementById('pessoa');
   	var value = select.options[select.selectedIndex].value;
   	if(value === 'Física'){
@@ -384,4 +373,5 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
   	}
   	
   });
+
 </script>

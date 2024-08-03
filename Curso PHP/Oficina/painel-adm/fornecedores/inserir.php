@@ -70,7 +70,7 @@ if ($id == "") {
 
 
 } else {
-	$res = $pdo->prepare("UPDATE mecanicos SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone, tipo_pessoa = :pessoa WHERE id = '$id' ");
+	$res = $pdo->prepare("UPDATE fornecedores SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone, tipo_pessoa = :pessoa WHERE id = '$id' ");
 
 }
 $res->bindValue(":nome", $nome);
