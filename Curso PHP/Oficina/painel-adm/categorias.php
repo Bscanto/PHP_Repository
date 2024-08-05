@@ -47,14 +47,18 @@ require_once("../conexao.php");
 						$nome = $res[$i]['nome'];
 						
 						$id = $res[$i]['id'];
+
+						
+						$query_tot = $pdo->query("SELECT * FROM produtos where categoria = '$id'");
+						$res_tot = $query_tot->fetchAll(PDO::FETCH_ASSOC);
+						$total_produtos = @count($res_tot);
+
 						?>
 
 						<tr>
 							<td><?php echo $nome ?></td>
-							<td><?php echo $total_produtos ?></td>
-							<td><?php echo $telefone ?></td>
-							<td><?php echo $email ?></td>
-							<td><?php echo $endereco ?></td>
+							<td><?php echo @$total_produtos ?> Produtos</td>
+							
 
 							<td>
 								<a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
@@ -87,15 +91,10 @@ require_once("../conexao.php");
 					$titulo = "Editar Registro";
 					$id2 = $_GET['id'];
 
-					$query = $pdo->query("SELECT * FROM mecanicos where id = '$id2' ");
+					$query = $pdo->query("SELECT * FROM categorias where id = '$id2' ");
 					$res = $query->fetchAll(PDO::FETCH_ASSOC);
 					$nome2 = $res[0]['nome'];
-					$cpf2 = $res[0]['cpf'];
-					$telefone2 = $res[0]['telefone'];
-					$email2 = $res[0]['email'];
-					$endereco2 = $res[0]['endereco'];
-
-
+					
 				} else {
 					$titulo = "Inserir Registro";
 
@@ -117,36 +116,7 @@ require_once("../conexao.php");
 						<input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome_mec" name="nome_mec" placeholder="Nome">
 					</div>
 
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label >CPF</label>
-								<input value="<?php echo @$cpf2 ?>" type="text" class="form-control" id="cpf" name="cpf_mec" placeholder="CPF">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label >Telefone</label>
-								<input value="<?php echo @$telefone2 ?>" type="text" class="form-control" id="telefone" name="telefone_mec" placeholder="Telefone">
-							</div>
-						</div>
-					</div>
-
 					
-
-					
-
-					<div class="form-group">
-						<label >Email</label>
-						<input value="<?php echo @$email2 ?>" type="text" class="form-control" id="email" name="email_mec" placeholder="Email">
-					</div>
-
-					<div class="form-group">
-						<label >Endereço</label>
-						<input value="<?php echo @$endereco2 ?>" type="text" class="form-control" id="endereco" name="endereco_mec" placeholder="Endereçõ">
-					</div>
-
-
 					<small>
 						<div id="mensagem">
 
@@ -191,9 +161,7 @@ require_once("../conexao.php");
 
 				<p>Deseja realmente Excluir este Registro?</p>
 
-				<div align="center" id="mensagem_excluir" class="">
-
-				</div>
+				<small><div align="center" id="mensagem_excluir" class="">	</div></small>
 
 			</div>
 			<div class="modal-footer">
@@ -292,7 +260,10 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 					if (mensagem.trim() === 'Excluído com Sucesso!') {
 						$('#btn-cancelar-excluir').click();
 						window.location = "index.php?pag=" + pag;
+					}else{
+						$('#mensagem_excluir').addClass('text-danger')
 					}
+
 					$('#mensagem_excluir').text(mensagem)
 
 				},
@@ -304,29 +275,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 
 
-<!--SCRIPT PARA CARREGAR IMAGEM -->
-<script type="text/javascript">
 
-	function carregarImg() {
-
-		var target = document.getElementById('target');
-		var file = document.querySelector("input[type=file]").files[0];
-		var reader = new FileReader();
-
-		reader.onloadend = function () {
-			target.src = reader.result;
-		};
-
-		if (file) {
-			reader.readAsDataURL(file);
-
-
-		} else {
-			target.src = "";
-		}
-	}
-
-</script>
 
 
 <script type="text/javascript">
@@ -337,3 +286,6 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 	});
 </script>
+
+
+
