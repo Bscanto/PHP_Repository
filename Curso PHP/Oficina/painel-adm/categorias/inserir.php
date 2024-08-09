@@ -6,9 +6,13 @@ $nome = $_POST['nome_mec'];
 $antigo = $_POST['antigo'];
 $id = $_POST['txtid2'];
 
-if($nome == ""){
-	echo 'O nome é Obrigatório!';
-	exit();
+
+if (empty($nome)) {
+	echo 'O nome é obrigatório!';
+	exit(); 
+} else if(strlen($nome) < 2) {
+	echo 'O nome deve ter pelo menos 2 caracteres!';
+	exit(); 
 }
 
 
