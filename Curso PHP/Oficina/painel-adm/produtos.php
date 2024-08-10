@@ -92,7 +92,9 @@ require_once("../conexao.php");
 
 							<td>
 								<a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
+
 								<a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
+
 								<a href="" onclick="mostrarDescricao('<?php echo $descricao ?>', '<?php echo $imagem ?>')" class='text-primary mr-1' title='Descrição do Produto'><i class='fas fa-info-circle'></i></a>
 							</td>
 						</tr>
@@ -318,7 +320,7 @@ require_once("../conexao.php");
 
 
 
-
+//MODAL PARA DESCRIÇÃO DOS PRODUTOS 
 <div class="modal" id="modal-descricao" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -351,7 +353,7 @@ require_once("../conexao.php");
 
 
 
-
+//MODAL PARA FORNECEDORES
 <div class="modal" id="modal-forn" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -530,7 +532,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "forn") {
 
 
 
-
+//script para informacao descricao 
 <script type="text/javascript">
 
 	function mostrarDescricao(descricao, imagem) {
