@@ -12,7 +12,10 @@ $usuario = 'root';
 $senha = '';
 $banco = 'oficina';
 
+// algumas variaveis globais
 
+//APARTIR DE X PRODUTOS O NIVEL DO ESTOQUE ESTARÁ BAIXO
+$nivel_estoque = 5;
 
 
 

@@ -205,7 +205,7 @@ require_once("../conexao.php");
 						</div>
 					</div>
 
-					
+
 
 					<div class="row">
 						<div class="col-md-4">
@@ -354,7 +354,7 @@ require_once("../conexao.php");
 
 
 //MODAL PARA FORNECEDORES
-<div class="modal" id="modal-forn" tabindex="-1" role="dialog">
+<div class="modal modal-lg" id="modal-forn" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -384,8 +384,11 @@ require_once("../conexao.php");
 				?>
 
 				<span><b>Nome: </b> <i><?php echo $nome3 ?></i><br>
+				<br>
 				<span><b>Telefone: </b> <i><?php echo $telefone3 ?></i> <span class="ml-4"><b>CPF: </b> <i><?php echo $cpf3 ?></i><br>
+				<br>
 				<span><b>Email: </b> <i><?php echo $email3 ?><br>
+				<br>
 				<span><b>Endereço: </b> <i><?php echo $endereco3 ?><br>
 
 			</div>

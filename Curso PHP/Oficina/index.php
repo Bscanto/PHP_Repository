@@ -1,7 +1,6 @@
 <?php 
 require_once("conexao.php");
 
-//CRIAR AUTOMATICAMENTE O USUARIO ADMIN
 $query = $pdo->query("SELECT * FROM usuarios where nivel = 'admin'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
@@ -149,7 +148,7 @@ if($total_reg == 0){
 
 
 
-<!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM OU SEM IMAGEM -->
+
 <script type="text/javascript">
 	$("#form").submit(function () {
 		

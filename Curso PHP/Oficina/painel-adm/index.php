@@ -1,5 +1,6 @@
 <?php 
 require_once("../conexao.php");
+
 @session_start();
 if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'admin'){
     echo "<script language='javascript'> window.location='../index.php' </script>";
@@ -117,7 +118,6 @@ $email_usu = @$res[0]['email'];
                             
                             <a class="collapse-item" href="index.php?pag=<?php echo $menu4 ?>">Categorias</a>
                             <a class="collapse-item" href="index.php?pag=<?php echo $menu5 ?>">Produtos</a>
-                            <a class="collapse-item" href="index.php?pag=<?php echo $menu6 ?>">Menu 5</a>
 
                         </div>
                     </div>
@@ -137,7 +137,7 @@ $email_usu = @$res[0]['email'];
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?pag=<?php echo $menu6 ?>">
                         <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Menu 6</span></a>
+                        <span>Estoque Baixo</span></a>
                 </li>
 
                 <!-- Nav Item - Tables -->
@@ -350,49 +350,4 @@ $email_usu = @$res[0]['email'];
     </body>
 
 </html>
-
-
-
-
-
-
-<!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM OU SEM IMAGEM -->
-<script type="text/javascript">
-    $("#form-perfil").submit(function () {
-       
-        event.preventDefault();
-        var formData = new FormData(this);
-
-        $.ajax({
-            url: "editar-perfil.php",
-            type: 'POST',
-            data: formData,
-
-            success: function (mensagem) {
-                $('#mensagem').removeClass()
-                if (mensagem.trim() == "Salvo com Sucesso!") {
-                    //$('#nome').val('');
-                    $('#btn-fechar-perfil').click();
-                    window.location = "index.php";
-                } else {
-                    $('#mensagem').addClass('text-danger')
-                }
-                $('#mensagem').text(mensagem)
-            },
-
-            cache: false,
-            contentType: false,
-            processData: false,
-            xhr: function () {  // Custom XMLHttpRequest
-                var myXhr = $.ajaxSettings.xhr();
-                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
-                    myXhr.upload.addEventListener('progress', function () {
-                        /* faz alguma coisa durante o progresso do upload */
-                    }, false);
-                }
-                return myXhr;
-            }
-        });
-    });
-</script>
 

@@ -26,6 +26,24 @@ if($cpf == ""){
 	exit();
 }
 
+// Validação de CPF
+if (strlen($cpf) <= 11) {
+    echo 'O CPF deve ter 11 dígitos!';
+    exit();
+}
+
+// Validação de Telefone
+if (strlen($telefone) <= 11) {
+    echo 'O Telefone deve ter 11 dígitos!';
+    exit();
+}
+
+// Validação de E-mail
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo 'E-mail inválido!';
+    exit();
+}
+
 //VERIFICAR SE O REGISTRO JÁ EXISTE NO BANCO
 if($antigo != $cpf){
 $query = $pdo->query("SELECT * FROM mecanicos where cpf = '$cpf' ");
@@ -50,8 +68,6 @@ if($antigo2 != $email){
 	 }
 	}
 	//FIM DA VERIFICAÇÃO 
-
-
 
 
 if ($id == "") {
