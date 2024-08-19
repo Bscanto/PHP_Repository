@@ -144,10 +144,6 @@ require_once("../conexao.php");
 </div>
 
 
-
-
-
-
 <div class="modal" id="modal-deletar" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -197,9 +193,6 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 ?>
 
-
-
-
 <!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM OU SEM IMAGEM -->
 <script type="text/javascript">
 	$("#form").submit(function () {
@@ -241,9 +234,6 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 </script>
 
 
-
-
-
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -272,8 +262,6 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 		})
 	})
 </script>
-
-
 
 <script type="text/javascript">
 	$(document).ready(function () {

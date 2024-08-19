@@ -308,7 +308,6 @@ $email_usu = @$res[0]['email'];
                         <div class="modal-footer">
 
 
-
                             <input value="<?php echo $_SESSION['id_usuario'] ?>" type="hidden" name="id_usu" id="id_usu">
                             <input value="<?php echo $cpf_usu ?>" type="hidden" name="antigo_usu" id="antigo_usu">
 

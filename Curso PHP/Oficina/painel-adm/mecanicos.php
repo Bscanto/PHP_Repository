@@ -8,7 +8,6 @@ $pag = "mecanicos";
 require_once("../conexao.php"); 
 
 
-
 ?>
 
 <div class="row mt-4 mb-4">
@@ -67,10 +66,6 @@ require_once("../conexao.php");
 							</td>
 						</tr>
 					<?php } ?>
-
-
-
-
 
 				</tbody>
 			</table>

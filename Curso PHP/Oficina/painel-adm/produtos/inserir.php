@@ -66,7 +66,6 @@ if($antigo != $nome){
 }
 
 
-
 if($id == ""){
 	$res = $pdo->prepare("INSERT INTO produtos SET nome = :nome, categoria = :categoria, fornecedor = :fornecedor, valor_compra = :valor_compra, valor_venda = :valor_venda, estoque = :estoque, descricao = :descricao, imagem = :imagem");	
 		$res->bindValue(":imagem", $imagem);

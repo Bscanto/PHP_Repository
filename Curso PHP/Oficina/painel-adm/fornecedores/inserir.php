@@ -63,8 +63,6 @@ if($antigo2 != $email){
 	//FIM DA VERIFICAÇÃO 
 
 
-
-
 if ($id == "") {
 	$res = $pdo->prepare(" INSERT INTO fornecedores SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone, tipo_pessoa = :pessoa");
 
