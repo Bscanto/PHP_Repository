@@ -317,7 +317,7 @@ require_once("../conexao.php");
 
 
 
-//MODAL PARA DESCRIÇÃO DOS PRODUTOS 
+<!-- MODAL PARA DESCRIÇÃO DOS PRODUTOS -->
 <div class="modal" id="modal-descricao" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -350,7 +350,7 @@ require_once("../conexao.php");
 
 
 
-//MODAL PARA FORNECEDORES
+<!-- MODAL PARA FORNECEDORES -->
 <div class="modal modal-lg" id="modal-forn" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -532,7 +532,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "forn") {
 
 
 
-//script para informacao descricao 
+<!--script para informacao descricao -->
 <script type="text/javascript">
 
 	function mostrarDescricao(descricao, imagem) {

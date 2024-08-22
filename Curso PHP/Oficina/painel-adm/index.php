@@ -22,8 +22,17 @@ $email_usu = @$res[0]['email'];
     $menu3 = "fornecedores";
     $menu4 = "categorias";
     $menu5 = "produtos";
-    $menu6 = "menu6";
-  
+    $menu6 = "estoque";
+   
+// VERIFICAR NIVEL DO ESTOQUE
+$query = $pdo->query("SELECT * FROM produtos where estoque < '$nivel_estoque' ");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$nivel_est = @count($res);
+if($nivel_est > 0){
+    $cor_menu = "text-warning";
+    }else{
+        $cor_menu = "";
+}
 
  ?>
 
@@ -137,7 +146,7 @@ $email_usu = @$res[0]['email'];
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?pag=<?php echo $menu6 ?>">
                         <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Estoque Baixo</span></a>
+                        <span class=" <?php echo $cor_menu?>" >Estoque Baixo</span></a>
                 </li>
 
                 <!-- Nav Item - Tables -->
