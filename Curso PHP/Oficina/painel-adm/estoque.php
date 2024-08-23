@@ -108,6 +108,7 @@ require_once("../conexao.php");
 			<div class="modal-header">
 				<?php 
 				if (@$_GET['funcao'] == 'pedido') {
+
 					$id2 = $_GET['id'];
 
 					$query = $pdo->query("SELECT * FROM produtos where id = '$id2' ");
@@ -127,7 +128,7 @@ require_once("../conexao.php");
 			</div>
 			<form id="form" method="POST">
 				<div class="modal-body">
-
+					
 							<div class="form-group">
 								<label >Fornecedores</label>
 								<select name="fornecedor" class="form-control" id="fornecedor">
@@ -167,9 +168,7 @@ require_once("../conexao.php");
 								<input value="" type="number" class="form-control" id="quantidade" name="quantidade" placeholder="Quantidade a Comprar">
 							</div>
 
-					
-					
-
+				
 
 					<small>
 						<div id="mensagem">
@@ -198,6 +197,49 @@ require_once("../conexao.php");
 </div>
 
 
+<div class="modal" id="modal-forn" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Dados do Fornecedor</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+			
+			<?php 
+				if (@$_GET['funcao'] == 'forn') {
+					
+					$id2 = $_GET['id'];
+
+					$query = $pdo->query("SELECT * FROM fornecedores where id = '$id2' ");
+					$res = $query->fetchAll(PDO::FETCH_ASSOC);
+					$nome3 = $res[0]['nome'];
+					$cpf3 = $res[0]['cpf'];
+					$telefone3 = $res[0]['telefone'];
+					$email3 = $res[0]['email'];
+					$endereco3 = $res[0]['endereco'];
+					
+				} 
+
+
+				?>
+
+				<span><b>Nome: </b> <i><?php echo $nome3 ?></i><br>
+				<span><b>Telefone: </b> <i><?php echo $telefone3 ?></i> <span class="ml-4"><b>CPF: </b> <i><?php echo $cpf3 ?></i><br>
+				<span><b>Email: </b> <i><?php echo $email3 ?><br>
+				<span><b>Endereço: </b> <i><?php echo $endereco3 ?><br>
+
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+
+
 
 
 <?php 
@@ -206,7 +248,9 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "pedido") {
 	echo "<script>$('#modalDados').modal('show');</script>";
 }
 
-
+if (@$_GET["funcao"] != null && @$_GET["funcao"] == "forn") {
+	echo "<script>$('#modal-forn').modal('show');</script>";
+}
 
 ?>
 
@@ -254,6 +298,9 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "pedido") {
 </script>
 
 
+
+
+
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('#dataTable').dataTable({
@@ -262,3 +309,4 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "pedido") {
 
 	});
 </script>
+
