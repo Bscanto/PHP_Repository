@@ -94,8 +94,6 @@ require_once("../conexao.php");
 
 
 
-
-
 				</tbody>
 			</table>
 		</div>
@@ -105,35 +103,24 @@ require_once("../conexao.php");
 
 <!-- Modal -->
 <div class="modal fade" id="modalDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
+	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<?php 
-				if (@$_GET['funcao'] == 'editar') {
-					$titulo = "Editar Registro";
+				if (@$_GET['funcao'] == 'pedido') {
 					$id2 = $_GET['id'];
 
 					$query = $pdo->query("SELECT * FROM produtos where id = '$id2' ");
 					$res = $query->fetchAll(PDO::FETCH_ASSOC);
-					$nome2 = $res[0]['nome'];
-					$categoria2 = $res[0]['categoria'];
+					
 					$fornecedor2 = $res[0]['fornecedor'];
 					$valor_compra2 = $res[0]['valor_compra'];
 					$valor_venda2 = $res[0]['valor_venda'];
 					$estoque2 = $res[0]['estoque'];
-					$descricao2 = $res[0]['descricao'];
-					$imagem2 = $res[0]['imagem'];
-
-
-				} else {
-					$titulo = "Inserir Registro";
-
 				}
-
-
 				?>
 
-				<h5 class="modal-title" id="exampleModalLabel"><?php echo $titulo ?></h5>
+				<h5 class="modal-title" id="exampleModalLabel">Pedido Estoque</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -141,36 +128,6 @@ require_once("../conexao.php");
 			<form id="form" method="POST">
 				<div class="modal-body">
 
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label >Nome</label>
-								<input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome_reg" name="nome_reg" placeholder="Nome">
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label >Categoria</label>
-								<select name="categoria" class="form-control" id="categoria">
-
-									<?php 
-
-									$query = $pdo->query("SELECT * FROM categorias order by nome asc ");
-									$res = $query->fetchAll(PDO::FETCH_ASSOC);
-
-									for ($i=0; $i < @count($res); $i++) { 
-										foreach ($res[$i] as $key => $value) {
-										}
-										$nome_reg = $res[$i]['nome'];
-										$id_reg = $res[$i]['id'];
-										?>									
-										<option <?php if(@$categoria2 == $id_reg){ ?> selected <?php } ?> value="<?php echo $id_reg ?>"><?php echo $nome_reg ?></option>
-									<?php } ?>
-									
-								</select>
-							</div>
-						</div>
-						<div class="col-md-4">
 							<div class="form-group">
 								<label >Fornecedores</label>
 								<select name="fornecedor" class="form-control" id="fornecedor">
@@ -191,55 +148,26 @@ require_once("../conexao.php");
 									
 								</select>
 							</div>
-						</div>
-					</div>
+						
 
 
-
-					<div class="row">
-						<div class="col-md-4">
+					
 							<div class="form-group">
 								<label >Valor Compra</label>
 								<input value="<?php echo @$valor_compra2 ?>" type="text" class="form-control" id="valor_compra" name="valor_compra" placeholder="Valor da Compra">
 							</div>
-						</div>
-						<div class="col-md-4">
+						
 							<div class="form-group">
 								<label >Valor Venda</label>
 								<input value="<?php echo @$valor_venda2 ?>" type="text" class="form-control" id="valor_venda" name="valor_venda" placeholder="Valor da Venda">
 							</div>
-						</div>
-						<div class="col-md-4">
+						
 							<div class="form-group">
-								<label >Estoque</label>
-								<input value="<?php echo @$estoque2 ?>" type="number" class="form-control" id="estoque" name="estoque" placeholder="Estoque">
+								<label >Quantidade</label>
+								<input value="" type="number" class="form-control" id="quantidade" name="quantidade" placeholder="Quantidade a Comprar">
 							</div>
-						</div>
-					</div>
 
 					
-					<div class="row">
-						<div class="col-md-8">
-							<div class="form-group">
-								<label >Descrição</label>
-								<textarea class="form-control" id="descricao" name="descricao"><?php echo $descricao2 ?></textarea> 
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label >Imagem</label>
-								<input type="file" value="<?php echo @$imagem2 ?>"  class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
-							</div>
-
-							<?php if(@$imagem2 != ""){ ?>
-								<img src="../img/produtos/<?php echo $imagem2 ?>" width="100" height="100" id="target">
-							<?php  }else{ ?>
-								<img src="../img/produtos/sem-foto.jpg" width="100" height="100" id="target">
-							<?php } ?>
-						</div>
-						
-					</div>
-
 					
 
 
@@ -334,4 +262,3 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "pedido") {
 
 	});
 </script>
-

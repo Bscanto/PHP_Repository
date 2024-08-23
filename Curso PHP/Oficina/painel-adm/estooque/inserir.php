@@ -1,18 +1,27 @@
 <?php
 require_once("../../conexao.php");
 
-$nome = $_POST['nome_mec'];
+$fornecedor = $_POST['fornecedor'];
+$valor_compra = $_POST['valor_compra'];
+$valor_venda = $_POST['valor_venda'];
+$estoque = $_POST['quantidade'];
 
-$antigo = $_POST['antigo'];
 $id = $_POST['txtid2'];
 
 
-if (empty($nome)) {
-	echo 'O nome é obrigatório!';
-	exit(); 
-} else if(strlen($nome) < 2) {
-	echo 'O nome deve ter pelo menos 2 caracteres!';
-	exit(); 
+f($valor_venda == ""){
+	echo 'O Valor da venda é Obrigatório!';
+	exit();
+}
+
+if($valor_compra == ""){
+	echo 'O Valor da compra é Obrigatório!';
+	exit();
+}
+
+if($estoque == ""){
+	echo 'O Estoque é Obrigatório!';
+	exit();
 }
 
 
