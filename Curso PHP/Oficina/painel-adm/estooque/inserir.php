@@ -9,7 +9,7 @@ $estoque = $_POST['quantidade'];
 $id = $_POST['txtid2'];
 
 
-f($valor_venda == ""){
+if($valor_venda == ""){
 	echo 'O Valor da venda é Obrigatório!';
 	exit();
 }
