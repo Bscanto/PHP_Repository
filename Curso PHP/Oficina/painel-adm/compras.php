@@ -47,10 +47,10 @@ require_once("../conexao.php");
 						?>
 
 						<tr>
-							<td><?php echo $nome ?></td>
-							<td><?php echo $cpf ?></td>
-							<td><?php echo $telefone ?></td>
-							<td><?php echo $email ?></td>
+							<td><?php echo $produto ?></td>
+							<td><?php echo $valor ?></td>
+							<td><?php echo $funcionario ?></td>
+							<td><?php echo $data ?></td>
 							<td><?php echo $endereco ?></td>
 
 							<td>
