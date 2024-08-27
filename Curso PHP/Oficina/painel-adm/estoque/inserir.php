@@ -2,7 +2,6 @@
 require_once("../../conexao.php"); 
 @session_start();
 
-
 $fornecedor = $_POST['fornecedor'];
 $valor_compra = $_POST['valor_compra'];
 $valor_venda = $_POST['valor_venda'];
@@ -40,7 +39,6 @@ $res2 = $pdo->prepare("INSERT INTO contas_pagar SET descricao = 'Compra de Produ
 
 $res3 = $pdo->prepare("INSERT INTO compras SET produto = '$id', valor = :valor, funcionario = :funcionario, data = curDate(), id_conta = :id_conta ");
 
-
 $res->bindValue(":fornecedor", $fornecedor);
 $res->bindValue(":valor_compra", $valor_compra);
 $res->bindValue(":valor_venda", $valor_venda);
@@ -52,6 +50,7 @@ $res2->bindValue(":funcionario", $_SESSION['cpf_usuario']);
 
 $res->execute();
 $res2->execute();
+$id_conta = $pdo->lastInsertId();
 
 $res3->bindValue(":valor", $valor_total);
 $res3->bindValue(":funcionario", $_SESSION['cpf_usuario']);

@@ -23,6 +23,7 @@ $email_usu = @$res[0]['email'];
     $menu4 = "categorias";
     $menu5 = "produtos";
     $menu6 = "estoque";
+    $menu7 = "compras";
    
 // VERIFICAR NIVEL DO ESTOQUE
 $query = $pdo->query("SELECT * FROM produtos where estoque < '$nivel_estoque' ");
@@ -149,6 +150,11 @@ if($nivel_est > 0){
                         <span class=" " >Estoque Baixo</span></a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?pag=<?php echo $menu7 ?>">
+                        <i class="fas fa-coins fa-chart-area"></i>
+                        <span class=" " >Compras</span></a>
+                </li>
                 <!-- Nav Item - Tables -->
               
 
@@ -236,6 +242,8 @@ if($nivel_est > 0){
                         } else if (@$pag==$menu6) {
                         @include_once(@$menu6.".php");
 
+                    } else if (@$pag==$menu7) {
+                        @include_once(@$menu7.".php");
                        
                         
                         } else {
