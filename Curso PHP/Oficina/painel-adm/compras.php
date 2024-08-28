@@ -48,13 +48,20 @@ require_once("../conexao.php");
 
 						$query_prod = $pdo->query("SELECT * FROM produtos where id = '$produto' ");
 						$res_prod = $query_prod->fetchAll(PDO::FETCH_ASSOC);
-						$nome_produto = $res_cat[0]['nome'];
+						$nome_produto = $res_prod[0]['nome'];
+
+						$query_usu = $pdo->query("SELECT * FROM usuarios where cpf = '$funcionario' ");
+						$res_usu = $query_usu->fetchAll(PDO::FETCH_ASSOC);
+						$nome_funcionario = $res_usu[0]['nome'];
+
+						$valor = number_format($valor, 2, ',', '.');
+						$data = implode('/', array_reverse(explode('-', $data)));
 
 						?>
 
 						<tr>
 							<td><?php echo $nome_produto ?></td>
-							<td><?php echo $valor ?></td>
+							<td>R$<?php echo $valor ?></td>
 							<td><?php echo $nome_funcionario ?></td>
 							<td><?php echo $data ?></td>
 
@@ -66,106 +73,6 @@ require_once("../conexao.php");
 
 				</tbody>
 			</table>
-		</div>
-	</div>
-</div>
-
-
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="modalDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<?php 
-				if (@$_GET['funcao'] == 'editar') {
-					$titulo = "Editar Registro";
-					$id2 = $_GET['id'];
-
-					$query = $pdo->query("SELECT * FROM mecanicos where id = '$id2' ");
-					$res = $query->fetchAll(PDO::FETCH_ASSOC);
-					$nome2 = $res[0]['nome'];
-					$cpf2 = $res[0]['cpf'];
-					$telefone2 = $res[0]['telefone'];
-					$email2 = $res[0]['email'];
-					$endereco2 = $res[0]['endereco'];
-
-
-				} else {
-					$titulo = "Inserir Registro";
-
-				}
-
-
-				?>
-
-				<h5 class="modal-title" id="exampleModalLabel"><?php echo $titulo ?></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<form id="form" method="POST">
-				<div class="modal-body">
-
-					<div class="form-group">
-						<label >Nome</label>
-						<input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome_mec" name="nome_mec" placeholder="Nome">
-					</div>
-
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label >CPF</label>
-								<input value="<?php echo @$cpf2 ?>" type="text" class="form-control" id="cpf" name="cpf_mec" placeholder="CPF">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label >Telefone</label>
-								<input value="<?php echo @$telefone2 ?>" type="text" class="form-control" id="telefone" name="telefone_mec" placeholder="Telefone">
-							</div>
-						</div>
-					</div>
-
-					
-
-					
-
-					<div class="form-group">
-						<label >Email</label>
-						<input value="<?php echo @$email2 ?>" type="text" class="form-control" id="email" name="email_mec" placeholder="Email">
-					</div>
-
-					<div class="form-group">
-						<label >Endereço</label>
-						<input value="<?php echo @$endereco2 ?>" type="text" class="form-control" id="endereco" name="endereco_mec" placeholder="Endereçõ">
-					</div>
-
-
-					<small>
-						<div id="mensagem">
-
-						</div>
-					</small> 
-
-				</div>
-
-
-
-				<div class="modal-footer">
-
-
-
-					<input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2">
-					<input value="<?php echo @$cpf2 ?>" type="hidden" name="antigo" id="antigo">
-					<input value="<?php echo @$email2 ?>" type="hidden" name="antigo2" id="antigo2">
-
-					<button type="button" id="btn-fechar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					<button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
-				</div>
-			</form>
 		</div>
 	</div>
 </div>
@@ -212,63 +119,11 @@ require_once("../conexao.php");
 
 <?php 
 
-if (@$_GET["funcao"] != null && @$_GET["funcao"] == "novo") {
-	echo "<script>$('#modalDados').modal('show');</script>";
-}
-
-if (@$_GET["funcao"] != null && @$_GET["funcao"] == "editar") {
-	echo "<script>$('#modalDados').modal('show');</script>";
-}
-
 if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 	echo "<script>$('#modal-deletar').modal('show');</script>";
 }
 
 ?>
-
-
-
-
-<!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM OU SEM IMAGEM -->
-<script type="text/javascript">
-	$("#form").submit(function () {
-		var pag = "<?=$pag?>";
-		event.preventDefault();
-		var formData = new FormData(this);
-
-		$.ajax({
-			url: pag + "/inserir.php",
-			type: 'POST',
-			data: formData,
-
-			success: function (mensagem) {
-				$('#mensagem').removeClass()
-				if (mensagem.trim() == "Salvo com Sucesso!") {
-                    //$('#nome').val('');
-                    $('#btn-fechar').click();
-                    window.location = "index.php?pag="+pag;
-                } else {
-                	$('#mensagem').addClass('text-danger')
-                }
-                $('#mensagem').text(mensagem)
-            },
-
-            cache: false,
-            contentType: false,
-            processData: false,
-            xhr: function () {  // Custom XMLHttpRequest
-            	var myXhr = $.ajaxSettings.xhr();
-                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
-                	myXhr.upload.addEventListener('progress', function () {
-                		/* faz alguma coisa durante o progresso do upload */
-                	}, false);
-                }
-                return myXhr;
-            }
-        });
-	});
-</script>
-
 
 
 
@@ -299,31 +154,6 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 	})
 </script>
 
-
-
-<!--SCRIPT PARA CARREGAR IMAGEM -->
-<script type="text/javascript">
-
-	function carregarImg() {
-
-		var target = document.getElementById('target');
-		var file = document.querySelector("input[type=file]").files[0];
-		var reader = new FileReader();
-
-		reader.onloadend = function () {
-			target.src = reader.result;
-		};
-
-		if (file) {
-			reader.readAsDataURL(file);
-
-
-		} else {
-			target.src = "";
-		}
-	}
-
-</script>
 
 
 <script type="text/javascript">
