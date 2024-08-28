@@ -43,18 +43,22 @@ require_once("../conexao.php");
 						$valor = $res[$i]['valor'];
 						$funcionario = $res[$i]['funcionario'];
 						$data = $res[$i]['data'];
+
 						$id = $res[$i]['id'];
+
+						$query_prod = $pdo->query("SELECT * FROM produtos where id = '$produto' ");
+						$res_prod = $query_prod->fetchAll(PDO::FETCH_ASSOC);
+						$nome_produto = $res_cat[0]['nome'];
+
 						?>
 
 						<tr>
-							<td><?php echo $produto ?></td>
+							<td><?php echo $nome_produto ?></td>
 							<td><?php echo $valor ?></td>
-							<td><?php echo $funcionario ?></td>
+							<td><?php echo $nome_funcionario ?></td>
 							<td><?php echo $data ?></td>
-							<td><?php echo $endereco ?></td>
 
 							<td>
-								<a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
 								<a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
 							</td>
 						</tr>
