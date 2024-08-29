@@ -1,10 +1,7 @@
 <?php 
 require_once("../conexao.php");
-
 @session_start();
-if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'recep'){
-    echo "<script language='javascript'> window.location='../index.php' </script>";
-}
+
 
 
 //RECUPERAR DADOS DO USUÁRIO
@@ -17,27 +14,10 @@ $email_usu = @$res[0]['email'];
 
     //variaveis para o menu
     $pag = @$_GET["pag"];
-    $menu1 = "mecanicos";
-    $menu2 = "recepcionistas";
-    $menu3 = "fornecedores";
-    $menu4 = "categorias";
-    $menu5 = "produtos";
-    $menu6 = "estoque";
-    $menu7 = "compras";
-   
-// VERIFICAR NIVEL DO ESTOQUE
-$query = $pdo->query("SELECT * FROM produtos where estoque < '$nivel_estoque' ");
-$res = $query->fetchAll(PDO::FETCH_ASSOC);
-$nivel_est = @count($res);
-if($nivel_est > 0){
-    $cor_menu = "text-warning";
-    }else{
-        $cor_menu = "";
-}
+    $menu1 = "pagar";
+    $menu2 = "receber";
 
  ?>
-
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -50,7 +30,7 @@ if($nivel_est > 0){
         <meta name="description" content="">
         <meta name="author" content="Hugo Vasconcelos">
 
-        <title>Painel Administrativo</title>
+        <title>Painel Recepção</title>
 
         <!-- Custom fonts for this template-->
         <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -83,35 +63,31 @@ if($nivel_est > 0){
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
 
-                    <div class="sidebar-brand-text mx-3">Administrador</div>
+                    <div class="sidebar-brand-text mx-3">Recepcionista</div>
                 </a>
 
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
-
-
 
                 <!-- Divider -->
                 <hr class="sidebar-divider">
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Cadastros
+                    Contas
                 </div>
-
 
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-users"></i>
-                        <span>Pessoas</span>
+                        <i class="fas fa-coins"></i>
+                        <span>Pagar e Receber</span>
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             
-                            <a class="collapse-item" href="index.php?pag=<?php echo $menu1 ?>">Mecanicos</a>
-                            <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Recepcionistas</a>
-                            <a class="collapse-item" href="index.php?pag=<?php echo $menu3 ?>">Fornecedores</a>
+                            <a class="collapse-item" href="index.php?pag=<?php echo $menu1 ?>">Contas à Pagar</a>
+                            <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Contas à Receber</a>
 
                         </div>
                     </div>

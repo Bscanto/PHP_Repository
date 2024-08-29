@@ -1,10 +1,10 @@
 <?php 
 @session_start();
-if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'admin'){
+if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'recep'){
     echo "<script language='javascript'> window.location='../index.php' </script>";
 }
 
-$pag = "categorias";
+$pag = "pagar";
 require_once("../conexao.php"); 
 
 
