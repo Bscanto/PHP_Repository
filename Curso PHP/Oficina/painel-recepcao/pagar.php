@@ -17,7 +17,6 @@ require_once("../conexao.php");
 </div>
 
 
-
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
 
@@ -60,18 +59,27 @@ require_once("../conexao.php");
 						$valor = number_format($valor, 2, ',', '.');
 						$data_venc = implode('/', array_reverse(explode('-', $data_venc)));
 
+						if($pago == 'Sim'){
+								$cor_pago = 'text-success';
+						}else{
+								$cor_pago = 'text-danger';
+						}
+						
 						?>
 
 						<tr>
-							<td><?php echo $descricao ?></td>
+							<td><i class='fas fa-square mr-1 <?php echo $cor_pago ?>'></i> <?php echo $descricao ?></td>
 							<td>R$ <?php echo $valor ?></td>
 							<td><?php echo $nome_func ?> </td>
 							<td><?php echo $data_venc ?> </td>
 							
 
 							<td>
+								<?php  if($pago != 'Sim'){ ?>
 								<a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
 								<a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
+								<a href="index.php?pag=<?php echo $pag ?>&funcao=aprovar&id=<?php echo $id ?>" class='text-success mr-1' title='Aprovar Conta'><i class='fas fa-check-square'></i></a>
+								<?php } ?>
 							</td>
 						</tr>
 					<?php } ?>
