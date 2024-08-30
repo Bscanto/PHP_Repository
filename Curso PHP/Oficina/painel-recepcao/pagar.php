@@ -8,11 +8,10 @@ $pag = "pagar";
 require_once("../conexao.php"); 
 
 
-
 ?>
 
 <div class="row mt-4 mb-4">
-	<a type="button" class="btn-secondary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Categoria</a>
+	<a type="button" class="btn-secondary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Conta</a>
 	<a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
 
 </div>
@@ -27,9 +26,10 @@ require_once("../conexao.php");
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
 					<tr>
-						<th>Nome</th>
-						<th>Produtos</th>
-						
+						<th>Descrição</th>
+						<th>Valor</th>
+						<th>Funcionário</th>
+						<th>Data Vencimento</th>
 						<th>Ações</th>
 					</tr>
 				</thead>
@@ -38,26 +38,35 @@ require_once("../conexao.php");
 
 					<?php 
 
-					$query = $pdo->query("SELECT * FROM categorias order by id desc ");
+					$query = $pdo->query("SELECT * FROM contas_pagar order by id desc ");
 					$res = $query->fetchAll(PDO::FETCH_ASSOC);
 					
 					for ($i=0; $i < @count($res); $i++) { 
 						foreach ($res[$i] as $key => $value) {
 						}
-						$nome = $res[$i]['nome'];
+						$descricao = $res[$i]['descricao'];
+						$valor = $res[$i]['valor'];
+						$funcionario = $res[$i]['funcionario'];
+						$data_venc = $res[$i]['data_venc'];
+						$pago = $res[$i]['pago'];
 						
 						$id = $res[$i]['id'];
 
 						
-						$query_tot = $pdo->query("SELECT * FROM produtos where categoria = '$id'");
-						$res_tot = $query_tot->fetchAll(PDO::FETCH_ASSOC);
-						$total_produtos = @count($res_tot);
+						$query_usu = $pdo->query("SELECT * FROM usuarios where cpf = '$funcionario'");
+						$res_usu = $query_usu->fetchAll(PDO::FETCH_ASSOC);
+						$nome_func = $res_usu[0]['nome'];
+
+						$valor = number_format($valor, 2, ',', '.');
+						$data_venc = implode('/', array_reverse(explode('-', $data_venc)));
 
 						?>
 
 						<tr>
-							<td><?php echo $nome ?></td>
-							<td><?php echo @$total_produtos ?> Produtos</td>
+							<td><?php echo $descricao ?></td>
+							<td>R$ <?php echo $valor ?></td>
+							<td><?php echo $nome_func ?> </td>
+							<td><?php echo $data_venc ?> </td>
 							
 
 							<td>
