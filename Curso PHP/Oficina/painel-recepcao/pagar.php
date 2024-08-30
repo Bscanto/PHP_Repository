@@ -48,6 +48,7 @@ require_once("../conexao.php");
 						$funcionario = $res[$i]['funcionario'];
 						$data_venc = $res[$i]['data_venc'];
 						$pago = $res[$i]['pago'];
+						$imagem = $res[$i]['imagem'];
 						
 						$id = $res[$i]['id'];
 
@@ -72,6 +73,7 @@ require_once("../conexao.php");
 							<td>R$ <?php echo $valor ?></td>
 							<td><?php echo $nome_func ?> </td>
 							<td><?php echo $data_venc ?> </td>
+							<td>Ver Arquivo</td>
 							
 
 							<td>
@@ -100,7 +102,7 @@ require_once("../conexao.php");
 
 <!-- Modal -->
 <div class="modal fade" id="modalDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<?php 
@@ -108,9 +110,12 @@ require_once("../conexao.php");
 					$titulo = "Editar Registro";
 					$id2 = $_GET['id'];
 
-					$query = $pdo->query("SELECT * FROM categorias where id = '$id2' ");
+					$query = $pdo->query("SELECT * FROM contas_pagar where id = '$id2' ");
 					$res = $query->fetchAll(PDO::FETCH_ASSOC);
-					$nome2 = $res[0]['nome'];
+					$descricao2 = $res[0]['descricao'];
+					$valor2 = $res[0]['valor'];
+					$data_venc2 = $res[0]['data_venc'];
+					$imagem2 = $res[0]['imagem'];
 					
 				} else {
 					$titulo = "Inserir Registro";
@@ -128,10 +133,27 @@ require_once("../conexao.php");
 			<form id="form" method="POST">
 				<div class="modal-body">
 
-					<div class="form-group">
-						<label >Nome</label>
-						<input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome_mec" name="nome_mec" placeholder="Nome">
-					</div>
+				
+				<div class="form-group">
+								<label >Descricao</label>
+								<input value="<?php echo @$descricao2 ?>" type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição">
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label >Valor</label>
+										<input value="<?php echo @$valor2 ?>" type="text" class="form-control" id="valor" name="valor" placeholder="Valor" required>
+									</div>
+								</div>
+								<div class="col-md-6">
+									
+									<div class="form-group">
+										<label >Data Vencimento</label>
+										<input value="<?php echo @$data_venc2 ?>" type="date" class="form-control" id="data_venc" name="data_venc" >
+									</div>	
+								</div>
+							</div>
 
 					
 					<small>
