@@ -1,32 +1,11 @@
 <?php
 require_once("../../conexao.php");
 
-$nome = $_POST['nome_mec'];
+$descricao = $_POST['descricao'];
+$valor = $_POST['valor'];
+$data_venc = $_POST['data$data_venc'];
 
-$antigo = $_POST['antigo'];
 $id = $_POST['txtid2'];
-
-
-if (empty($nome)) {
-	echo 'O nome é obrigatório!';
-	exit(); 
-} else if(strlen($nome) < 2) {
-	echo 'O nome deve ter pelo menos 2 caracteres!';
-	exit(); 
-}
-
-
-//VERIFICAR SE O REGISTRO JÁ EXISTE NO BANCO
-if($antigo != $nome){
-$query = $pdo->query("SELECT * FROM categorias where nome = '$nome' ");
-$res = $query->fetchAll(PDO::FETCH_ASSOC);
-$total_reg = @count($res);
-if ($total_reg > 0) {
-	echo 'A categoria já está Cadastrada!';
-	exit();
- }
-}
-//FIM DA VERIFICAÇÃO 
 
 
 

@@ -7,6 +7,7 @@ if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'recep'
 $pag = "pagar";
 require_once("../conexao.php"); 
 
+$data_venc2 = date('y-m-d');
 
 ?>
 
@@ -133,8 +134,31 @@ require_once("../conexao.php");
 			<form id="form" method="POST">
 				<div class="modal-body">
 
-				
-				<div class="form-group">
+				<div class="row">
+						<div class="col-md-6">
+
+							<div class="form-group">
+								<label >Fornecedores</label>
+								<select name="fornecedor" class="form-control sel2" id="fornecedor" style="width:100%">
+									<option value="">Selecione um Fornecedor</option>
+									<?php 
+
+									$query = $pdo->query("SELECT * FROM fornecedores order by nome asc ");
+									$res = $query->fetchAll(PDO::FETCH_ASSOC);
+									
+									for ($i=0; $i < @count($res); $i++) { 
+										foreach ($res[$i] as $key => $value) {
+										}
+										$nome_reg = $res[$i]['nome'];
+										$id_reg = $res[$i]['id'];
+										?>									
+										<option <?php if(@$fornecedor2 == $id_reg){ ?> selected <?php } ?> value="<?php echo $id_reg ?>"><?php echo $nome_reg ?></option>
+									<?php } ?>
+									
+								</select>
+							</div>
+
+							<div class="form-group">
 								<label >Descricao</label>
 								<input value="<?php echo @$descricao2 ?>" type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição">
 							</div>
@@ -155,6 +179,30 @@ require_once("../conexao.php");
 								</div>
 							</div>
 
+							
+
+
+						</div>
+
+						<div class="col-md-6">
+							
+							<div class="form-group">
+								<label >Imagem</label>
+								<input type="file" value="<?php echo @$imagem2 ?>"  class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
+							</div>
+
+							<div id="divImgConta">
+								<?php if(@$imagem2 != ""){ ?>
+									<img src="../img/contas/sem-foto2.jpg echo $imagem2 ?>" width="170" height="170" id="target">
+								<?php  }else{ ?>
+									<img src="../img/contas/sem-foto2.jpg" width="170" height="170" id="target">
+								<?php } ?>
+							</div>
+
+						</div>
+
+					</div>
+					
 					
 					<small>
 						<div id="mensagem">
@@ -171,8 +219,7 @@ require_once("../conexao.php");
 
 
 					<input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2">
-					<input value="<?php echo @$cpf2 ?>" type="hidden" name="antigo" id="antigo">
-					<input value="<?php echo @$email2 ?>" type="hidden" name="antigo2" id="antigo2">
+					
 
 					<button type="button" id="btn-fechar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 					<button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
@@ -311,5 +358,31 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 	});
 </script>
 
+
+
+
+<!--SCRIPT PARA CARREGAR IMAGEM -->
+<script type="text/javascript">
+
+	function carregarImg() {
+
+		var target = document.getElementById('target');
+		var file = document.querySelector("input[type=file]").files[0];
+		var reader = new FileReader();
+
+		reader.onloadend = function () {
+			target.src = reader.result;
+		};
+
+		if (file) {
+			reader.readAsDataURL(file);
+
+
+		} else {
+			target.src = "";
+		}
+	}
+
+</script>
 
 
