@@ -342,4 +342,3 @@ $email_usu = @$res[0]['email'];
     </body>
 
 </html>
-

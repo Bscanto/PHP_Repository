@@ -384,5 +384,3 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 	}
 
 </script>
-
-
