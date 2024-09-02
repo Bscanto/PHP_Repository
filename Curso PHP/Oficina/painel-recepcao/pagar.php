@@ -1,13 +1,13 @@
-<?php 
+<?php
 @session_start();
-if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'recep'){
-    echo "<script language='javascript'> window.location='../index.php' </script>";
+if (@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'recep') {
+	echo "<script language='javascript'> window.location='../index.php' </script>";
 }
 
 $pag = "pagar";
-require_once("../conexao.php"); 
+require_once("../conexao.php");
 
-$data_venc2 = date('y-m-d');
+$data_venc = date('y-m-d');
 
 ?>
 
@@ -16,6 +16,7 @@ $data_venc2 = date('y-m-d');
 	<a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
 
 </div>
+
 
 
 <!-- DataTales Example -->
@@ -30,18 +31,19 @@ $data_venc2 = date('y-m-d');
 						<th>Valor</th>
 						<th>Funcionário</th>
 						<th>Data Vencimento</th>
+						<th>Arquivo</th>
 						<th>Ações</th>
 					</tr>
 				</thead>
 
 				<tbody>
 
-					<?php 
+					<?php
 
-					$query = $pdo->query("SELECT * FROM contas_pagar order by id desc ");
+					$query = $pdo->query("SELECT * FROM contas_pagar order by data_venc asc ");
 					$res = $query->fetchAll(PDO::FETCH_ASSOC);
-					
-					for ($i=0; $i < @count($res); $i++) { 
+
+					for ($i = 0; $i < @count($res); $i++) {
 						foreach ($res[$i] as $key => $value) {
 						}
 						$descricao = $res[$i]['descricao'];
@@ -50,10 +52,9 @@ $data_venc2 = date('y-m-d');
 						$data_venc = $res[$i]['data_venc'];
 						$pago = $res[$i]['pago'];
 						$imagem = $res[$i]['imagem'];
-						
+
 						$id = $res[$i]['id'];
 
-						
 						$query_usu = $pdo->query("SELECT * FROM usuarios where cpf = '$funcionario'");
 						$res_usu = $query_usu->fetchAll(PDO::FETCH_ASSOC);
 						$nome_func = $res_usu[0]['nome'];
@@ -61,13 +62,13 @@ $data_venc2 = date('y-m-d');
 						$valor = number_format($valor, 2, ',', '.');
 						$data_venc = implode('/', array_reverse(explode('-', $data_venc)));
 
-						if($pago == 'Sim'){
-								$cor_pago = 'text-success';
-						}else{
-								$cor_pago = 'text-danger';
+						if ($pago == 'Sim') {
+							$cor_pago = 'text-success';
+						} else {
+							$cor_pago = 'text-danger';
 						}
-						
-						?>
+
+					?>
 
 						<tr>
 							<td><i class='fas fa-square mr-1 <?php echo $cor_pago ?>'></i> <?php echo $descricao ?></td>
@@ -75,13 +76,13 @@ $data_venc2 = date('y-m-d');
 							<td><?php echo $nome_func ?> </td>
 							<td><?php echo $data_venc ?> </td>
 							<td>Ver Arquivo</td>
-							
+
 
 							<td>
-								<?php  if($pago != 'Sim'){ ?>
-								<a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
-								<a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
-								<a href="index.php?pag=<?php echo $pag ?>&funcao=aprovar&id=<?php echo $id ?>" class='text-success mr-1' title='Aprovar Conta'><i class='fas fa-check-square'></i></a>
+								<?php if ($pago != 'Sim') { ?>
+									<a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
+									<a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
+									<a href="index.php?pag=<?php echo $pag ?>&funcao=aprovar&id=<?php echo $id ?>" class='text-success mr-1' title='Aprovar Conta'><i class='fas fa-check-square'></i></a>
 								<?php } ?>
 							</td>
 						</tr>
@@ -106,7 +107,7 @@ $data_venc2 = date('y-m-d');
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<?php 
+				<?php
 				if (@$_GET['funcao'] == 'editar') {
 					$titulo = "Editar Registro";
 					$id2 = $_GET['id'];
@@ -117,10 +118,8 @@ $data_venc2 = date('y-m-d');
 					$valor2 = $res[0]['valor'];
 					$data_venc2 = $res[0]['data_venc'];
 					$imagem2 = $res[0]['imagem'];
-					
 				} else {
 					$titulo = "Inserir Registro";
-
 				}
 
 
@@ -134,67 +133,36 @@ $data_venc2 = date('y-m-d');
 			<form id="form" method="POST">
 				<div class="modal-body">
 
-				<div class="row">
+					<div class="row">
 						<div class="col-md-6">
-
 							<div class="form-group">
-								<label >Fornecedores</label>
-								<select name="fornecedor" class="form-control sel2" id="fornecedor" style="width:100%">
-									<option value="">Selecione um Fornecedor</option>
-									<?php 
-
-									$query = $pdo->query("SELECT * FROM fornecedores order by nome asc ");
-									$res = $query->fetchAll(PDO::FETCH_ASSOC);
-									
-									for ($i=0; $i < @count($res); $i++) { 
-										foreach ($res[$i] as $key => $value) {
-										}
-										$nome_reg = $res[$i]['nome'];
-										$id_reg = $res[$i]['id'];
-										?>									
-										<option <?php if(@$fornecedor2 == $id_reg){ ?> selected <?php } ?> value="<?php echo $id_reg ?>"><?php echo $nome_reg ?></option>
-									<?php } ?>
-									
-								</select>
-							</div>
-
-							<div class="form-group">
-								<label >Descricao</label>
+								<label>Descricao</label>
 								<input value="<?php echo @$descricao2 ?>" type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição">
 							</div>
 
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label >Valor</label>
-										<input value="<?php echo @$valor2 ?>" type="text" class="form-control" id="valor" name="valor" placeholder="Valor" required>
-									</div>
-								</div>
-								<div class="col-md-6">
-									
-									<div class="form-group">
-										<label >Data Vencimento</label>
-										<input value="<?php echo @$data_venc2 ?>" type="date" class="form-control" id="data_venc" name="data_venc" >
-									</div>	
-								</div>
+							<div class="form-group">
+								<label>Valor</label>
+								<input value="<?php echo @$valor2 ?>" type="text" class="form-control" id="valor" name="valor" placeholder="Valor">
 							</div>
 
-							
-
+							<div class="form-group">
+								<label>Data Vencimento</label>
+								<input value="<?php echo @$data_venc2 ?>" type="date" class="form-control" id="data_venc" name="data_venc">
+							</div>
 
 						</div>
 
 						<div class="col-md-6">
-							
+
 							<div class="form-group">
-								<label >Imagem</label>
-								<input type="file" value="<?php echo @$imagem2 ?>"  class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
+								<label>Imagem</label>
+								<input type="file" value="<?php echo @$imagem2 ?>" class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
 							</div>
 
 							<div id="divImgConta">
-								<?php if(@$imagem2 != ""){ ?>
-									<img src="../img/contas/sem-foto2.jpg echo $imagem2 ?>" width="170" height="170" id="target">
-								<?php  }else{ ?>
+								<?php if (@$imagem2 != "") { ?>
+									<img src="../img/contas/?php echo $imagem2 ?>" width="170" height="170" id="target">
+								<?php  } else { ?>
 									<img src="../img/contas/sem-foto2.jpg" width="170" height="170" id="target">
 								<?php } ?>
 							</div>
@@ -202,13 +170,14 @@ $data_venc2 = date('y-m-d');
 						</div>
 
 					</div>
-					
-					
+
+
+
 					<small>
 						<div id="mensagem">
 
 						</div>
-					</small> 
+					</small>
 
 				</div>
 
@@ -219,7 +188,6 @@ $data_venc2 = date('y-m-d');
 
 
 					<input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2">
-					
 
 					<button type="button" id="btn-fechar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 					<button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
@@ -228,6 +196,7 @@ $data_venc2 = date('y-m-d');
 		</div>
 	</div>
 </div>
+
 
 
 <div class="modal" id="modal-deletar" tabindex="-1" role="dialog">
@@ -243,14 +212,16 @@ $data_venc2 = date('y-m-d');
 
 				<p>Deseja realmente Excluir este Registro?</p>
 
-				<small><div align="center" id="mensagem_excluir" class="">	</div></small>
+				<small>
+					<div align="center" id="mensagem_excluir" class=""> </div>
+				</small>
 
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir">Cancelar</button>
 				<form method="post">
 
-					<input type="hidden" id="id"  name="id" value="<?php echo @$_GET['id'] ?>" required>
+					<input type="hidden" id="id" name="id" value="<?php echo @$_GET['id'] ?>" required>
 
 					<button type="button" id="btn-deletar" name="btn-deletar" class="btn btn-danger">Excluir</button>
 				</form>
@@ -263,7 +234,7 @@ $data_venc2 = date('y-m-d');
 
 
 
-<?php 
+<?php
 
 if (@$_GET["funcao"] != null && @$_GET["funcao"] == "novo") {
 	echo "<script>$('#modalDados').modal('show');</script>";
@@ -281,8 +252,8 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 <!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM OU SEM IMAGEM -->
 <script type="text/javascript">
-	$("#form").submit(function () {
-		var pag = "<?=$pag?>";
+	$("#form").submit(function() {
+		var pag = "<?= $pag ?>";
 		event.preventDefault();
 		var formData = new FormData(this);
 
@@ -291,52 +262,52 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 			type: 'POST',
 			data: formData,
 
-			success: function (mensagem) {
+			success: function(mensagem) {
 				$('#mensagem').removeClass()
 				if (mensagem.trim() == "Salvo com Sucesso!") {
-                    //$('#nome').val('');
-                    $('#btn-fechar').click();
-                    window.location = "index.php?pag="+pag;
-                } else {
-                	$('#mensagem').addClass('text-danger')
-                }
-                $('#mensagem').text(mensagem)
-            },
+					//$('#nome').val('');
+					$('#btn-fechar').click();
+					window.location = "index.php?pag=" + pag;
+				} else {
+					$('#mensagem').addClass('text-danger')
+				}
+				$('#mensagem').text(mensagem)
+			},
 
-            cache: false,
-            contentType: false,
-            processData: false,
-            xhr: function () {  // Custom XMLHttpRequest
-            	var myXhr = $.ajaxSettings.xhr();
-                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
-                	myXhr.upload.addEventListener('progress', function () {
-                		/* faz alguma coisa durante o progresso do upload */
-                	}, false);
-                }
-                return myXhr;
-            }
-        });
+			cache: false,
+			contentType: false,
+			processData: false,
+			xhr: function() { // Custom XMLHttpRequest
+				var myXhr = $.ajaxSettings.xhr();
+				if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+					myXhr.upload.addEventListener('progress', function() {
+						/* faz alguma coisa durante o progresso do upload */
+					}, false);
+				}
+				return myXhr;
+			}
+		});
 	});
 </script>
 
 
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
-	$(document).ready(function () {
-		var pag = "<?=$pag?>";
-		$('#btn-deletar').click(function (event) {
+	$(document).ready(function() {
+		var pag = "<?= $pag ?>";
+		$('#btn-deletar').click(function(event) {
 			event.preventDefault();
 			$.ajax({
 				url: pag + "/excluir.php",
 				method: "post",
 				data: $('form').serialize(),
 				dataType: "text",
-				success: function (mensagem) {
+				success: function(mensagem) {
 
 					if (mensagem.trim() === 'Excluído com Sucesso!') {
 						$('#btn-cancelar-excluir').click();
 						window.location = "index.php?pag=" + pag;
-					}else{
+					} else {
 						$('#mensagem_excluir').addClass('text-danger')
 					}
 
@@ -349,28 +320,18 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 	})
 </script>
 
-<script type="text/javascript">
-	$(document).ready(function () {
-		$('#dataTable').dataTable({
-			"ordering": false
-		})
-
-	});
-</script>
-
-
 
 
 <!--SCRIPT PARA CARREGAR IMAGEM -->
 <script type="text/javascript">
-
 	function carregarImg() {
 
 		var target = document.getElementById('target');
 		var file = document.querySelector("input[type=file]").files[0];
+
 		var reader = new FileReader();
 
-		reader.onloadend = function () {
+		reader.onloadend = function() {
 			target.src = reader.result;
 		};
 
@@ -382,5 +343,13 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 			target.src = "";
 		}
 	}
+</script>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#dataTable').dataTable({
+			"ordering": false
+		})
+
+	});
 </script>
