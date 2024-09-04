@@ -15,6 +15,7 @@ $id = $_POST['txtid2'];
 $valor_compra = str_replace(',', '.', $valor_compra);
 $valor_venda = str_replace(',', '.', $valor_venda);
 
+
 //SCRIPT PARA SUBIR FOTO NO BANCO
 $nome_img = preg_replace('/[ -]+/' , '-' , @$_FILES['imagem']['name']);
 $caminho = '../../img/produtos/' .$nome_img;

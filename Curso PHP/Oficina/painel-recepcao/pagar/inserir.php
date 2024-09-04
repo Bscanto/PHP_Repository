@@ -8,7 +8,6 @@ $data_venc = $_POST['data_venc'];
 
 $id = $_POST['txtid2'];
 
-
 //SCRIPT PARA SUBIR FOTO NO BANCO
 $nome_img = preg_replace('/[ -]+/' , '-' , @$_FILES['imagem']['name']);
 $caminho = '../../img/contas' .$nome_img;
