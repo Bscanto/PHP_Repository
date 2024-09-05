@@ -10,16 +10,16 @@ $id = $_POST['txtid2'];
 
 //SCRIPT PARA SUBIR FOTO NO BANCO
 $nome_img = preg_replace('/[ -]+/' , '-' , @$_FILES['imagem']['name']);
-$caminho = '../../img/contas' .$nome_img;
+$caminho = '../../img/contas/' .$nome_img;
 if (@$_FILES['imagem']['name'] == ""){
-  $imagem = "sem-foto.jpg";
+  $imagem = "sem-foto2.jpg";
 }else{
     $imagem = $nome_img;
 }
 
 $imagem_temp = @$_FILES['imagem']['tmp_name']; 
 $ext = pathinfo($imagem, PATHINFO_EXTENSION);   
-if($ext == 'png' or $ext == 'jpg' or $ext == 'jpeg' or $ext == 'gif'){ 
+if($ext == 'png' or $ext == 'jpg' or $ext == 'jpeg' or $ext == 'gif' or $ext == 'pdf'){ 
 move_uploaded_file($imagem_temp, $caminho);
 }else{
 	echo 'Extensão de Imagem não permitida!';

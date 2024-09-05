@@ -8,7 +8,7 @@ if (@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'recep
 $pag = "pagar";
 require_once("../conexao.php");
 
-$data_venc = date('y-m-d');
+$data_venc2 = date('Y-m-d');
 
 ?>
 
@@ -41,7 +41,7 @@ $data_venc = date('y-m-d');
 
 					<?php
 
-					$query = $pdo->query("SELECT * FROM contas_pagar order by data_venc asc ");
+					$query = $pdo->query("SELECT * FROM contas_pagar order by pago asc, data_venc asc, id asc");
 					$res = $query->fetchAll(PDO::FETCH_ASSOC);
 
 					for ($i = 0; $i < @count($res); $i++) {
@@ -58,25 +58,46 @@ $data_venc = date('y-m-d');
 
 						$query_usu = $pdo->query("SELECT * FROM usuarios where cpf = '$funcionario'");
 						$res_usu = $query_usu->fetchAll(PDO::FETCH_ASSOC);
-						$nome_func = $res_usu[0]['nome'];
+						if(@count($res_usu) > 0){
+							$nome_func = $res_usu[0]['nome'];
+						}else{
+							$nome_func = "";
+						}
+
+						$query_usu = $pdo->query("SELECT * FROM fornecedores where id = '$fornecedor'");
+						$res_usu = $query_usu->fetchAll(PDO::FETCH_ASSOC);
+						if(@count($res_usu) > 0){
+							$nome_forn = $res_usu[0]['nome'];
+						}else{
+							$nome_forn = "";
+						}
 
 						$valor = number_format($valor, 2, ',', '.');
 						$data_venc = implode('/', array_reverse(explode('-', $data_venc)));
 
-						if ($pago == 'Sim') {
+						if($pago == 'Sim'){
 							$cor_pago = 'text-success';
-						} else {
+						}else{
 							$cor_pago = 'text-danger';
 						}
 
-					?>
+
+						?>
 
 						<tr>
-							<td><i class='fas fa-square mr-1 <?php echo $cor_pago ?>'></i> <?php echo $descricao ?></td>
+							<td><i class='fas fa-square mr-1 <?php echo $cor_pago ?>'></i> 
+							
+							<?php echo $descricao ?></td>
 							<td>R$ <?php echo $valor ?></td>
 							<td><?php echo $nome_func ?> </td>
 							<td><?php echo $data_venc ?> </td>
-							<td>Ver Arquivo</td>
+							
+							<td>
+								<?php if($imagem != "" and $imagem != "sem-foto.jpg"){
+									echo '<a href="../img/contas/'.$imagem.'" title="Clique para ver o arquivo" target="_blank">Ver Arquivo</a>';
+								}?>
+							</td>
+
 
 
 							<td>
@@ -88,9 +109,6 @@ $data_venc = date('y-m-d');
 							</td>
 						</tr>
 					<?php } ?>
-
-
-
 
 
 				</tbody>
@@ -108,7 +126,7 @@ $data_venc = date('y-m-d');
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<?php
+				<?php 
 				if (@$_GET['funcao'] == 'editar') {
 					$titulo = "Editar Registro";
 					$id2 = $_GET['id'];
@@ -119,8 +137,11 @@ $data_venc = date('y-m-d');
 					$valor2 = $res[0]['valor'];
 					$data_venc2 = $res[0]['data_venc'];
 					$imagem2 = $res[0]['imagem'];
+					$fornecedor2 = $res[0]['fornecedor'];
+					
 				} else {
 					$titulo = "Inserir Registro";
+
 				}
 
 
@@ -136,34 +157,65 @@ $data_venc = date('y-m-d');
 
 					<div class="row">
 						<div class="col-md-6">
+
 							<div class="form-group">
-								<label>Descricao</label>
+								<label >Fornecedores</label>
+								<select name="fornecedor" class="form-control sel2" id="fornecedor" style="width:100%">
+									<option value="">Selecione um Fornecedor</option>
+									<?php 
+
+									$query = $pdo->query("SELECT * FROM fornecedores order by nome asc ");
+									$res = $query->fetchAll(PDO::FETCH_ASSOC);
+									
+									for ($i=0; $i < @count($res); $i++) { 
+										foreach ($res[$i] as $key => $value) {
+										}
+										$nome_reg = $res[$i]['nome'];
+										$id_reg = $res[$i]['id'];
+										?>									
+										<option <?php if(@$fornecedor2 == $id_reg){ ?> selected <?php } ?> value="<?php echo $id_reg ?>"><?php echo $nome_reg ?></option>
+									<?php } ?>
+									
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label >Descricao</label>
 								<input value="<?php echo @$descricao2 ?>" type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição">
 							</div>
 
-							<div class="form-group">
-								<label>Valor</label>
-								<input value="<?php echo @$valor2 ?>" type="text" class="form-control" id="valor" name="valor" placeholder="Valor">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label >Valor</label>
+										<input value="<?php echo @$valor2 ?>" type="text" class="form-control" id="valor" name="valor" placeholder="Valor" required>
+									</div>
+								</div>
+								<div class="col-md-6">
+									
+									<div class="form-group">
+										<label >Data Vencimento</label>
+										<input value="<?php echo @$data_venc2 ?>" type="date" class="form-control" id="data_venc" name="data_venc" >
+									</div>	
+								</div>
 							</div>
 
-							<div class="form-group">
-								<label>Data Vencimento</label>
-								<input value="<?php echo @$data_venc2 ?>" type="date" class="form-control" id="data_venc" name="data_venc">
-							</div>
+							
+
 
 						</div>
 
 						<div class="col-md-6">
-
+							
 							<div class="form-group">
-								<label>Imagem</label>
-								<input type="file" value="<?php echo @$imagem2 ?>" class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
+								<label >Imagem</label>
+								<input type="file" value="<?php echo @$imagem2 ?>"  class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
 							</div>
 
 							<div id="divImgConta">
-								<?php if (@$imagem2 != "") { ?>
-									<img src="../img/contas/?php echo $imagem2 ?>" width="170" height="170" id="target">
-								<?php  } else { ?>
+								<?php if(@$imagem2 != ""){ ?>
+									<img src="../img/contas/<?php echo $imagem2 ?>" width="170" height="170" id="target">
+								<?php  }else{ ?>
 									<img src="../img/contas/sem-foto2.jpg" width="170" height="170" id="target">
 								<?php } ?>
 							</div>
@@ -171,14 +223,14 @@ $data_venc = date('y-m-d');
 						</div>
 
 					</div>
+					
 
-
-
+					
 					<small>
 						<div id="mensagem">
 
 						</div>
-					</small>
+					</small> 
 
 				</div>
 
@@ -189,7 +241,7 @@ $data_venc = date('y-m-d');
 
 
 					<input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2">
-
+					
 					<button type="button" id="btn-fechar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 					<button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
 				</div>
@@ -197,7 +249,6 @@ $data_venc = date('y-m-d');
 		</div>
 	</div>
 </div>
-
 
 
 <div class="modal" id="modal-deletar" tabindex="-1" role="dialog">
