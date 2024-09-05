@@ -283,6 +283,37 @@ $data_venc2 = date('Y-m-d');
 </div>
 
 
+<div class="modal" id="modal-aprovar" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Aprovar Pagamento</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<p>Deseja realmente Aprovar este Pagamento?</p>
+
+				<small>
+					<div align="center" id="mensagem_aprovar" class=""> </div>
+				</small>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-aprovar">Cancelar</button>
+				<form method="post">
+
+					<input type="hidden" id="id" name="id" value="<?php echo @$_GET['id'] ?>" required>
+
+					<button type="button" id="btn-aprovar" name="btn-deletar" class="btn btn-success">Aprovar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 
 
@@ -298,6 +329,10 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "editar") {
 
 if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 	echo "<script>$('#modal-deletar').modal('show');</script>";
+}
+
+if (@$_GET["funcao"] != null && @$_GET["funcao"] == "aprovar") {
+	echo "<script>$('#modal-aprovar').modal('show');</script>";
 }
 
 ?>
@@ -371,6 +406,35 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 		})
 	})
 </script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var pag = "<?= $pag ?>";
+		$('#btn-deletar').click(function(event) {
+			event.preventDefault();
+			$.ajax({
+				url: pag + "/aprovar.php",
+				method: "post",
+				data: $('form').serialize(),
+				dataType: "text",
+				success: function(mensagem) {
+
+					if (mensagem.trim() === 'Aprovado com Sucesso!') {
+						$('#btn-cancelar-excluir').click();
+						window.location = "index.php?pag=" + pag;
+					} else {
+						$('#mensagem_excluir').addClass('text-danger')
+					}
+
+					$('#mensagem_excluir').text(mensagem)
+
+				},
+
+			})
+		})
+	})
+</script>
+
 
 
 

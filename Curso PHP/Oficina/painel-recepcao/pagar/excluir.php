@@ -3,17 +3,15 @@ require_once("../../conexao.php");
 
 $id = $_POST['id'];
 
-//EXCLUIR SOMENTE SE NÃO TIVER REGISTROS RELACIONADOS
-$query_tot = $pdo->query("SELECT * FROM produtos where categoria = '$id'");
-$res_tot = $query_tot->fetchAll(PDO::FETCH_ASSOC);
-$total_produtos = @count($res_tot);
+$query = $pdo->query("SELECT * FROM compras where id_conta = '$id' ");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$id_compra = $res[0]['id'];
 
-if($total_produtos == 0){
-	$pdo->query("DELETE FROM categorias WHERE id = '$id'");
-	echo 'Excluído com Sucesso!';
-}else{
-	echo 'Você possui produtos relacionados a esta categoria, primeiro exclua os produtos para depois excluir a categoria!';
-}
 
+
+$pdo->query("DELETE FROM compras WHERE id = '$id_compra'");
+$pdo->query("DELETE FROM contas_pagar WHERE id = '$id'");
+
+echo 'Excluído com Sucesso!';
 
 ?>
