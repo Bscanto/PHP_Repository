@@ -349,6 +349,8 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 	});
 </script>
 
+
+
 <script type="text/javascript">
   var pessoa = "<?=$tipo_pessoa2?>";
    $(document).ready(function() {

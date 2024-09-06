@@ -135,6 +135,9 @@ require_once("../conexao.php");
 							</div>
 						</div>
 					</div>
+
+					
+
 					
 
 					<div class="form-group">
@@ -155,6 +158,8 @@ require_once("../conexao.php");
 					</small> 
 
 				</div>
+
+
 
 				<div class="modal-footer">
 
@@ -207,6 +212,8 @@ require_once("../conexao.php");
 		</div>
 	</div>
 </div>
+
+
 
 
 
@@ -270,6 +277,9 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 </script>
 
 
+
+
+
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -295,6 +305,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 		})
 	})
 </script>
+
 
 
 <!--SCRIPT PARA CARREGAR IMAGEM -->

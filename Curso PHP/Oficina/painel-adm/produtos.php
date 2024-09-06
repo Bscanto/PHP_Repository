@@ -92,9 +92,7 @@ require_once("../conexao.php");
 
 							<td>
 								<a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
-
 								<a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
-
 								<a href="" onclick="mostrarDescricao('<?php echo $descricao ?>', '<?php echo $imagem ?>')" class='text-primary mr-1' title='Descrição do Produto'><i class='fas fa-info-circle'></i></a>
 							</td>
 						</tr>
@@ -109,6 +107,9 @@ require_once("../conexao.php");
 		</div>
 	</div>
 </div>
+
+
+
 
 
 <!-- Modal -->
@@ -202,7 +203,7 @@ require_once("../conexao.php");
 						</div>
 					</div>
 
-
+					
 
 					<div class="row">
 						<div class="col-md-4">
@@ -317,7 +318,7 @@ require_once("../conexao.php");
 
 
 
-<!-- MODAL PARA DESCRIÇÃO DOS PRODUTOS -->
+
 <div class="modal" id="modal-descricao" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -350,8 +351,8 @@ require_once("../conexao.php");
 
 
 
-<!-- MODAL PARA FORNECEDORES -->
-<div class="modal modal-lg" id="modal-forn" tabindex="-1" role="dialog">
+
+<div class="modal" id="modal-forn" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -381,11 +382,8 @@ require_once("../conexao.php");
 				?>
 
 				<span><b>Nome: </b> <i><?php echo $nome3 ?></i><br>
-				<br>
 				<span><b>Telefone: </b> <i><?php echo $telefone3 ?></i> <span class="ml-4"><b>CPF: </b> <i><?php echo $cpf3 ?></i><br>
-				<br>
 				<span><b>Email: </b> <i><?php echo $email3 ?><br>
-				<br>
 				<span><b>Endereço: </b> <i><?php echo $endereco3 ?><br>
 
 			</div>
@@ -532,7 +530,7 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "forn") {
 
 
 
-<!--script para informacao descricao -->
+
 <script type="text/javascript">
 
 	function mostrarDescricao(descricao, imagem) {

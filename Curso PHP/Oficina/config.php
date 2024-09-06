@@ -1,22 +1,23 @@
 <?php 
 
 $nome_oficina = "Oficina Freitas";
-$url = "http://localhost/PHP_Repository/PHP_Repository/Curso%20PHP/Oficina/";
-$endereco_oficina = "Rua Alim perto, 441, Alegrete";
-$telefone_oficina = "(55)99621-4656";
-$email_adm = "bsccanto@gmail.com";
+$url = "http://localhost/oficina/";
+$endereco_oficina = "Rua Alameda Campos, 157, Belo Horizonte";
+$telefone_oficina = "(31)97527-5084";
+$email_adm = 'hvfadvocacia@gmail.com';
 
-//variaveis do banco de dados
+
+//VARIAVEIS DO BANCO DE DADOS LOCAL
 $servidor = 'localhost';
 $usuario = 'root';
 $senha = '';
 $banco = 'oficina';
 
-// algumas variaveis globais
 
-//APARTIR DE X PRODUTOS O NIVEL DO ESTOQUE ESTARÁ BAIXO
+//ALGUMAS VARIAVEIS GLOBAIS
+
+//A PARTIR DE X PRODUTOS O NIVEL DO ESTOQUE ESTARÁ BAIXO
 $nivel_estoque = 5;
 
 
-
-?>
+ ?>

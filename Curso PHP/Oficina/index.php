@@ -1,6 +1,7 @@
 <?php 
 require_once("conexao.php");
 
+//CRIAR AUTOMATICAMENTE O USUARIO ADMIN
 $query = $pdo->query("SELECT * FROM usuarios where nivel = 'admin'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
@@ -87,7 +88,8 @@ if($total_reg == 0){
 	.input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); }
 </style>
 
-</script>
+
+
 </head>
 <body>
 
@@ -107,9 +109,13 @@ if($total_reg == 0){
 		</form>
 	</div>
 
+
+
 </script>
 </body>
 </html>
+
+
 
 
 
@@ -148,7 +154,7 @@ if($total_reg == 0){
 
 
 
-
+<!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM OU SEM IMAGEM -->
 <script type="text/javascript">
 	$("#form").submit(function () {
 		

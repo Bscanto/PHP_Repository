@@ -1,6 +1,5 @@
 <?php 
 require_once("../conexao.php");
-
 @session_start();
 if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'admin'){
     echo "<script language='javascript'> window.location='../index.php' </script>";
@@ -24,18 +23,20 @@ $email_usu = @$res[0]['email'];
     $menu5 = "produtos";
     $menu6 = "estoque";
     $menu7 = "compras";
-   
-// VERIFICAR NIVEL DO ESTOQUE
+  
+
+
+//VERIFICAR NIVEL DO ESTOQUE
 $query = $pdo->query("SELECT * FROM produtos where estoque < '$nivel_estoque' ");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $nivel_est = @count($res);
 if($nivel_est > 0){
     $cor_menu = "text-warning";
-    }else{
-        $cor_menu = "";
-}
-
+   }else{
+    $cor_menu = "";
+   }
  ?>
+
 
 
 
@@ -112,7 +113,6 @@ if($nivel_est > 0){
                             <a class="collapse-item" href="index.php?pag=<?php echo $menu1 ?>">Mecanicos</a>
                             <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Recepcionistas</a>
                             <a class="collapse-item" href="index.php?pag=<?php echo $menu3 ?>">Fornecedores</a>
-
                         </div>
                     </div>
                 </li>
@@ -128,6 +128,7 @@ if($nivel_est > 0){
                             
                             <a class="collapse-item" href="index.php?pag=<?php echo $menu4 ?>">Categorias</a>
                             <a class="collapse-item" href="index.php?pag=<?php echo $menu5 ?>">Produtos</a>
+                            
 
                         </div>
                     </div>
@@ -146,15 +147,16 @@ if($nivel_est > 0){
                 <!-- Nav Item - Charts -->
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?pag=<?php echo $menu6 ?>">
-                        <i class="fas fa-fw fa-chart-area <?php echo $cor_menu?>"></i>
-                        <span class=" " >Estoque Baixo</span></a>
+                        <i class="fas fa-fw fa-chart-area <?php echo $cor_menu ?>"></i>
+                        <span class="">Estoque Baixo</span></a>
                 </li>
 
-                <li class="nav-item">
+                 <li class="nav-item">
                     <a class="nav-link" href="index.php?pag=<?php echo $menu7 ?>">
                         <i class="fas fa-coins fa-chart-area"></i>
-                        <span class=" " >Compras</span></a>
+                        <span class="">Compras</span></a>
                 </li>
+
                 <!-- Nav Item - Tables -->
               
 
@@ -242,7 +244,7 @@ if($nivel_est > 0){
                         } else if (@$pag==$menu6) {
                         @include_once(@$menu6.".php");
 
-                    } else if (@$pag==$menu7) {
+                        } else if (@$pag==$menu7) {
                         @include_once(@$menu7.".php");
                        
                         
@@ -325,6 +327,7 @@ if($nivel_est > 0){
                         <div class="modal-footer">
 
 
+
                             <input value="<?php echo $_SESSION['id_usuario'] ?>" type="hidden" name="id_usu" id="id_usu">
                             <input value="<?php echo $cpf_usu ?>" type="hidden" name="antigo_usu" id="antigo_usu">
 
@@ -366,4 +369,49 @@ if($nivel_est > 0){
     </body>
 
 </html>
+
+
+
+
+
+
+<!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM OU SEM IMAGEM -->
+<script type="text/javascript">
+    $("#form-perfil").submit(function () {
+       
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "editar-perfil.php",
+            type: 'POST',
+            data: formData,
+
+            success: function (mensagem) {
+                $('#mensagem').removeClass()
+                if (mensagem.trim() == "Salvo com Sucesso!") {
+                    //$('#nome').val('');
+                    $('#btn-fechar-perfil').click();
+                    window.location = "index.php";
+                } else {
+                    $('#mensagem').addClass('text-danger')
+                }
+                $('#mensagem').text(mensagem)
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+            xhr: function () {  // Custom XMLHttpRequest
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+                    myXhr.upload.addEventListener('progress', function () {
+                        /* faz alguma coisa durante o progresso do upload */
+                    }, false);
+                }
+                return myXhr;
+            }
+        });
+    });
+</script>
 

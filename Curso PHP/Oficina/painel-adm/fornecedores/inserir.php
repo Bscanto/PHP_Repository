@@ -1,5 +1,5 @@
-<?php
-require_once("../../conexao.php");
+<?php 
+require_once("../../conexao.php"); 
 
 $nome = $_POST['nome_mec'];
 $tipo_pessoa = $_POST['tipo_pessoa'];
@@ -17,9 +17,6 @@ if($tipo_pessoa != "Física"){
 	$cpf = $cnpj;
 }
 
-
-
-
 if($nome == ""){
 	echo 'O nome é Obrigatório!';
 	exit();
@@ -36,41 +33,38 @@ if($cpf == ""){
 }
 
 
-
 //VERIFICAR SE O REGISTRO JÁ EXISTE NO BANCO
 if($antigo != $cpf){
-$query = $pdo->query("SELECT * FROM fornecedores where cpf = '$cpf' ");
-$res = $query->fetchAll(PDO::FETCH_ASSOC);
-$total_reg = @count($res);
-if ($total_reg > 0) {
-	echo 'O CPF/CNPJ já está Cadastrado!';
-	exit();
- }
+	$query = $pdo->query("SELECT * FROM fornecedores where cpf = '$cpf' ");
+	$res = $query->fetchAll(PDO::FETCH_ASSOC);
+	$total_reg = @count($res);
+	if($total_reg > 0){
+		echo 'O CPF/CNPJ já está Cadastrado!';
+		exit();
+	}
 }
-//FIM DA VERIFICAÇÃO 
 
 
-//VERIFICAR SE O REGISTRO COM O MESMO EMAIL JÁ EXISTE NO BANCO
+//VERIFICAR SE O REGISTRO COM MESMO EMAIL JÁ EXISTE NO BANCO
 if($antigo2 != $email){
 	$query = $pdo->query("SELECT * FROM fornecedores where email = '$email' ");
 	$res = $query->fetchAll(PDO::FETCH_ASSOC);
 	$total_reg = @count($res);
-	if ($total_reg > 0) {
+	if($total_reg > 0){
 		echo 'O Email já está Cadastrado!';
 		exit();
-	 }
 	}
-	//FIM DA VERIFICAÇÃO 
+}
 
 
-if ($id == "") {
-	$res = $pdo->prepare(" INSERT INTO fornecedores SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone, tipo_pessoa = :pessoa");
+if($id == ""){
+	$res = $pdo->prepare("INSERT INTO fornecedores SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone, tipo_pessoa = :pessoa");	
 
-
-} else {
-	$res = $pdo->prepare("UPDATE fornecedores SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone, tipo_pessoa = :pessoa WHERE id = '$id' ");
+}else{
+	$res = $pdo->prepare("UPDATE fornecedores SET nome = :nome, cpf = :cpf, email = :email, endereco = :endereco, telefone = :telefone, tipo_pessoa = :pessoa WHERE id = '$id'");
 
 }
+
 $res->bindValue(":nome", $nome);
 $res->bindValue(":cpf", $cpf);
 $res->bindValue(":telefone", $telefone);
@@ -78,7 +72,8 @@ $res->bindValue(":email", $email);
 $res->bindValue(":endereco", $endereco);
 $res->bindValue(":pessoa", $tipo_pessoa);
 
-
 $res->execute();
 
 echo 'Salvo com Sucesso!';
+
+?>

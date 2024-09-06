@@ -36,7 +36,7 @@ require_once("../conexao.php");
 					<?php 
 
 					$query = $pdo->query("SELECT * FROM produtos where estoque < '$nivel_estoque' order by estoque asc ");
-					$res = $query->fetchAll (PDO::FETCH_ASSOC);
+					$res = $query->fetchAll(PDO::FETCH_ASSOC);
 					
 					for ($i=0; $i < @count($res); $i++) { 
 						foreach ($res[$i] as $key => $value) {
@@ -84,13 +84,13 @@ require_once("../conexao.php");
 							<td><img src="../img/produtos/<?php echo $imagem ?>" width="50" ></td>
 
 							<td>
-								<a href="index.php?pag=<?php echo $pag ?>&funcao=pedido&id=<?php echo $id ?>" class='text-success mr-1' title='Fazer Pedido'><i class='fas fa-plus'></i>
-								</a>
-
+								<a href="index.php?pag=<?php echo $pag ?>&funcao=pedido&id=<?php echo $id ?>" class='text-success mr-1' title='Fazer Pedido'><i class='fas fa-plus'></i></a>
 								
 							</td>
 						</tr>
 					<?php } ?>
+
+
 
 
 
@@ -101,6 +101,9 @@ require_once("../conexao.php");
 </div>
 
 
+
+
+
 <!-- Modal -->
 <div class="modal fade" id="modalDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -108,16 +111,17 @@ require_once("../conexao.php");
 			<div class="modal-header">
 				<?php 
 				if (@$_GET['funcao'] == 'pedido') {
-
+					
 					$id2 = $_GET['id'];
 
 					$query = $pdo->query("SELECT * FROM produtos where id = '$id2' ");
 					$res = $query->fetchAll(PDO::FETCH_ASSOC);
-					
+										
 					$fornecedor2 = $res[0]['fornecedor'];
 					$valor_compra2 = $res[0]['valor_compra'];
 					$valor_venda2 = $res[0]['valor_venda'];
 					$estoque2 = $res[0]['estoque'];
+					
 				}
 				?>
 
@@ -128,6 +132,7 @@ require_once("../conexao.php");
 			</div>
 			<form id="form" method="POST">
 				<div class="modal-body">
+
 					
 							<div class="form-group">
 								<label >Fornecedores</label>
@@ -149,8 +154,8 @@ require_once("../conexao.php");
 									
 								</select>
 							</div>
-						
-
+					
+					
 
 					
 							<div class="form-group">
@@ -167,8 +172,10 @@ require_once("../conexao.php");
 								<label >Quantidade</label>
 								<input value="" type="number" class="form-control" id="quantidade" name="quantidade" placeholder="Quantidade a Comprar">
 							</div>
+						
 
-				
+													
+
 
 					<small>
 						<div id="mensagem">
@@ -197,6 +204,7 @@ require_once("../conexao.php");
 </div>
 
 
+
 <div class="modal" id="modal-forn" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -208,8 +216,7 @@ require_once("../conexao.php");
 			</div>
 			<div class="modal-body">
 
-			
-			<?php 
+				<?php 
 				if (@$_GET['funcao'] == 'forn') {
 					
 					$id2 = $_GET['id'];

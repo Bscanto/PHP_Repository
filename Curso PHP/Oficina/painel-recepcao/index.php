@@ -1,7 +1,9 @@
 <?php 
 require_once("../conexao.php");
 @session_start();
-
+if(@$_SESSION['nivel_usuario'] == null || @$_SESSION['nivel_usuario'] != 'recep'){
+    echo "<script language='javascript'> window.location='../index.php' </script>";
+}
 
 
 //RECUPERAR DADOS DO USUÁRIO
@@ -16,8 +18,16 @@ $email_usu = @$res[0]['email'];
     $pag = @$_GET["pag"];
     $menu1 = "pagar";
     $menu2 = "receber";
+    $menu3 = "";
+    $menu4 = "categorias";
+    $menu5 = "produtos";
+    $menu6 = "movimentacoes";
+    $menu7 = "compras";
+  
 
- ?>
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -69,6 +79,8 @@ $email_usu = @$res[0]['email'];
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
 
+
+
                 <!-- Divider -->
                 <hr class="sidebar-divider">
 
@@ -76,6 +88,7 @@ $email_usu = @$res[0]['email'];
                 <div class="sidebar-heading">
                     Contas
                 </div>
+
 
 
                 <li class="nav-item">
@@ -89,6 +102,7 @@ $email_usu = @$res[0]['email'];
                             <a class="collapse-item" href="index.php?pag=<?php echo $menu1 ?>">Contas à Pagar</a>
                             <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Contas à Receber</a>
 
+                           
                         </div>
                     </div>
                 </li>
@@ -97,13 +111,14 @@ $email_usu = @$res[0]['email'];
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                         <i class="fas fa-plus"></i>
-                        <span>Produtos</span>
+                        <span>Cadastros</span>
                     </a>
                     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             
-                            <a class="collapse-item" href="index.php?pag=<?php echo $menu4 ?>">Categorias</a>
-                            <a class="collapse-item" href="index.php?pag=<?php echo $menu5 ?>">Produtos</a>
+                            <a class="collapse-item" href="index.php?pag=<?php echo $menu4 ?>">Clientes</a>
+                            <a class="collapse-item" href="index.php?pag=<?php echo $menu5 ?>">Veículos</a>
+                            
 
                         </div>
                     </div>
@@ -122,15 +137,16 @@ $email_usu = @$res[0]['email'];
                 <!-- Nav Item - Charts -->
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?pag=<?php echo $menu6 ?>">
-                        <i class="fas fa-fw fa-chart-area <?php echo $cor_menu?>"></i>
-                        <span class=" " >Estoque Baixo</span></a>
+                        <i class="fas fa-dollar-sign fa-chart-area"></i>
+                        <span class="">Movimentações</span></a>
                 </li>
 
-                <li class="nav-item">
+                 <li class="nav-item">
                     <a class="nav-link" href="index.php?pag=<?php echo $menu7 ?>">
                         <i class="fas fa-coins fa-chart-area"></i>
-                        <span class=" " >Compras</span></a>
+                        <span class="">Compras</span></a>
                 </li>
+
                 <!-- Nav Item - Tables -->
               
 
@@ -218,7 +234,7 @@ $email_usu = @$res[0]['email'];
                         } else if (@$pag==$menu6) {
                         @include_once(@$menu6.".php");
 
-                    } else if (@$pag==$menu7) {
+                        } else if (@$pag==$menu7) {
                         @include_once(@$menu7.".php");
                        
                         
@@ -301,6 +317,7 @@ $email_usu = @$res[0]['email'];
                         <div class="modal-footer">
 
 
+
                             <input value="<?php echo $_SESSION['id_usuario'] ?>" type="hidden" name="id_usu" id="id_usu">
                             <input value="<?php echo $cpf_usu ?>" type="hidden" name="antigo_usu" id="antigo_usu">
 
@@ -342,3 +359,49 @@ $email_usu = @$res[0]['email'];
     </body>
 
 </html>
+
+
+
+
+
+
+<!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM OU SEM IMAGEM -->
+<script type="text/javascript">
+    $("#form-perfil").submit(function () {
+       
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "editar-perfil.php",
+            type: 'POST',
+            data: formData,
+
+            success: function (mensagem) {
+                $('#mensagem').removeClass()
+                if (mensagem.trim() == "Salvo com Sucesso!") {
+                    //$('#nome').val('');
+                    $('#btn-fechar-perfil').click();
+                    window.location = "index.php";
+                } else {
+                    $('#mensagem').addClass('text-danger')
+                }
+                $('#mensagem').text(mensagem)
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+            xhr: function () {  // Custom XMLHttpRequest
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+                    myXhr.upload.addEventListener('progress', function () {
+                        /* faz alguma coisa durante o progresso do upload */
+                    }, false);
+                }
+                return myXhr;
+            }
+        });
+    });
+</script>
+
