@@ -1,25 +1,19 @@
-# PHP Study Repository
+# PHP_Repository
 
-Este repositório contém uma coleção de projetos, exercícios e exemplos de código usados para aprender e praticar PHP. O objetivo deste repositório é organizar meus estudos e ter uma base de código reutilizável para projetos futuros.
+# Repositório de Estudo PHP
 
-## 🔍 **Conteúdo do Repositório**
+Este repositório contém códigos e recursos relacionados ao meu estudo pessoal de PHP. Aqui, eu irei explorar diferentes conceitos, práticas recomendadas e projetos simples para aprimorar minhas habilidades em PHP.
 
-1. **Projetos**  
-   - Exemplos de códigos simples e avançados para aprender PHP de forma prática.
-   
-2. **Exercícios**  
-   - Exercícios focados em diferentes aspectos do PHP, como variáveis, arrays, loops, funções, etc.
+## Recursos Recomendados
 
-3. **Desafios de Programação**  
-   - Desafios que ajudam a melhorar as habilidades em PHP através de problemas reais.
+- [Documentação oficial do PHP](https://www.php.net/manual/pt_BR/)
 
-4. **Boas Práticas e Conceitos**  
-   - Dicas sobre boas práticas no uso de PHP, como o uso adequado de funções, estruturação de código, e design patterns.
+## Contato
 
-## 🚀 **Como Começar**
+Se você tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato comigo via e-mail ou abrindo uma *issue*.
 
-Para começar a estudar e testar os exemplos de código, siga os seguintes passos:
+**E-mail:** bsccanto@gmail.com
 
-### 1. Clone este repositório:
-```bash
-git clone https://github.com/SeuUsuario/PHP_Study_Repository.git
+---
+
+**Happy coding!**
