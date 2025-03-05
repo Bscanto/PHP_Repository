@@ -36,7 +36,6 @@ if($antigo != $cpf){
 	}
 }
 
-
 $res2 = $pdo->prepare("UPDATE usuarios SET nome = :nome, cpf = :cpf, email = :email, senha = :senha WHERE id = '$id'");	
 $res2->bindValue(":nome", $nome);
 $res2->bindValue(":cpf", $cpf);

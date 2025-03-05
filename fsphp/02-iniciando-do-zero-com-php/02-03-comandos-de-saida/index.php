@@ -1,8 +1,6 @@
-
 <?php
 
 require __DIR__ . '/../../fullstackphp/fsphp.php';
-
 
 fullStackPHPClassName("02.03 - Comandos de saída");
 
@@ -32,7 +30,7 @@ echo "<h4>{$hello} {$code}</h4>";
 echo '<h3>' . $hello . " " . $code . "</h3>";
 ?>
 
-    <h4><?= $hello; ?> <?= $code; ?></h4>
+<h4><?= $hello; ?> <?= $code; ?></h4>
 
 <?php
 
