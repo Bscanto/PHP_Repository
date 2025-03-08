@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/../../fullstackphp/fsphp.php';
 fullStackPHPClassName("02.12 - Constantes e constantes mágicas");
-
+echo "<h1> Constantes e constantes mágicas </h1>";
 /*
  * [ constantes ] https://php.net/manual/pt_BR/language.constants.php
  */
@@ -35,10 +35,13 @@ echo "<p>", Config::USER, "</p>";
 
 var_dump(get_defined_constants(true)["user"]);
 
+
+
 /*
  * [ constantes mágicas ] https://php.net/manual/pt_BR/language.constants.predefined.php
  */
 fullStackPHPClassSession("constantes mágicas", __LINE__);
+
 
 var_dump([
     __LINE__,

@@ -2,6 +2,8 @@
 require __DIR__ . '/../../fullstackphp/fsphp.php';
 fullStackPHPClassName("02.11 - Trabalhando com funções");
 
+
+
 /*
  * [ functions ] https://php.net/manual/pt_BR/language.functions.php
  */
@@ -18,14 +20,20 @@ var_dump(optionArgs("Robson", "Kaue"));
 var_dump(optionArgs("Robson", "Kaue", "Gustavo"));
 
 
+
+
 /*
  * [ global access ] global $var
  */
 fullStackPHPClassSession("global access", __LINE__);
 
-$weight = 86;
-$height = 1.83;
+$weight = 103;
+$height = 1.73;
 echo calcImc();
+
+
+
+
 
 
 /*
@@ -40,10 +48,15 @@ $pay = payTotal(500);
 echo $pay;
 
 
+
+
+
+
 /*
  * [ dinamic arguments ] get_args | num_args
  */
 fullStackPHPClassSession("dinamic arguments", __LINE__);
 
 
-var_dump(myTeam("Kaue", "Gustavo", "Gah", "João"));
+var_dump(myTeam("Kaue", "Gustavo", "Gah", "João", "Canto"));
+
